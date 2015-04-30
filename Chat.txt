@@ -3,5 +3,9 @@ AKjefhkjashfkjhas
 =======
 Hello
 >>>>>>> origin/master
+<<<<<<< HEAD
 
 Артём: Как дела?
+=======
+Hi guy's;)
+>>>>>>> origin/master
