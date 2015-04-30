@@ -10,3 +10,7 @@ Hello
 Hi guy's;)
 >>>>>>> origin/master
 Амиран: нормас)
+===========
+Артём:у нас есть главная вики страница:
+https://github.com/ElenaSerbova/EKO-14-P2/wiki
+===========
