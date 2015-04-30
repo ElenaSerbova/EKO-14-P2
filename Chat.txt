@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 AKjefhkjashfkjhas
+=======
+Hello
+>>>>>>> origin/master
