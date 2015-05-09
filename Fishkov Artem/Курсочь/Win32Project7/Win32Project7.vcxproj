@@ -91,8 +91,15 @@
     <ResourceCompile Include="Win32Project7.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="0.bmp" />
+    <Image Include="1.bmp" />
+    <Image Include="2.bmp" />
+    <Image Include="3.bmp" />
+    <Image Include="4.bmp" />
+    <Image Include="5.bmp" />
     <Image Include="img" />
     <Image Include="img.bmp" />
+    <Image Include="Test.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

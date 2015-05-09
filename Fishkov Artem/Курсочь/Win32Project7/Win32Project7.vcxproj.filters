@@ -48,5 +48,26 @@
     <Image Include="img.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="0.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Test.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

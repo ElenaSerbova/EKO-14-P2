@@ -13,6 +13,13 @@ public:
 	BOOL Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam);
 	void Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify);
 	void Cls_OnCreate(HWND hwnd);
+	bool trig;
 	Game game;
+	HBITMAP Back;
+	HANDLE HeroIconSpace;
+	HANDLE MonstrIconSpace;
+	HBITMAP Hero;
+	HBITMAP Monstr;
+	HBITMAP icons[5];
 	HANDLE* field[10][20];
 };
