@@ -3,6 +3,7 @@
 class creature
 {
 public:
+	bool life;
 	int hp;
 	int attack;
 	int defence;
@@ -18,6 +19,7 @@ public:
 		attack=0;
 		defence=0;
 		_tcscpy_s(this->name, L"NONAME");
+		life = 1;
 	}
 	creature(int hp,int attack,int defence,TCHAR*name)
 	{
@@ -25,8 +27,17 @@ public:
 		this->attack = attack;
 		this->defence = defence;
 		_tcscpy_s(this->name, name);	
+		life = 1;
 	}
-	virtual void DoStep() = 0;
+	virtual void TakeDMG(int dmg)
+	{
+		hp = hp - (dmg-defence);
+		if (hp <= 0)
+		{
+			life = 0;
+		}
+	}
+	virtual void DoStep(int type, int col) = 0;
 };
 class Monstr :public creature
 {
@@ -41,8 +52,18 @@ public:
 		this->timeng = timeng;
 		curentTime = 0;
 	}
-	void DoStep()
+	void DoStep(int type, int col)
 	{
+		if (timeng == curentTime)
+		{
+			enemy->TakeDMG(attack);
+			curentTime = 0;
+
+		}
+		else
+		{
+			curentTime++;
+		}
 	}
 };
 class Hero :public creature
@@ -51,28 +72,89 @@ public:
 	int concentration;
 	int shildtime;
 	int shildcurtime;
-	Hero(int hp, int attack, int defence, TCHAR*name) : creature(hp, attack, defence, name)
+	Hero(int hp, int attack, int defence,int shildtime,TCHAR*name) : creature(hp, attack, defence, name)
 	{
-
+		concentration = 0;
+		this->shildtime = shildtime;
 	}
 	Hero()
 	{
 	}
-	
-	void DoStep()
+	void TakeDMG(int dmg)
 	{
+		hp = hp - (dmg - defence);
+		if (hp <= 0)
+		{
+			life = 0;
+		}
 
+		if (defence != 0)
+		{
+			if (shildcurtime == shildtime)
+			{
+				defence = 0;
+			}
+			shildcurtime++;
+		}
+	}
+	void DoStep(int type,int col)
+	{
+		
+		switch (type)
+		{
+		case 1:
+			enemy->TakeDMG(col + concentration);
+			concentration = 0;
+			break;
+		case 2:
+			defence = col + concentration;
+			shildcurtime = 0;
+			concentration = 0;
+			break;
+		case 3:
+			hp += col + concentration;
+			concentration = 0;
+			break;
+		case 4:
+			concentration = col;
+			break;
+		case 5:
+			enemy->TakeDMG(col + concentration);
+			concentration = 0;
+			break;
+		}
+		
 	}
 };
 
 
 class Game
 {
-	Hero hero;
-	Monstr monstr;
 	bool selectfield[10][20];
 	int* field[10][20];
 public:
+	bool win;
+	bool gameover;
+	Hero hero;
+	Monstr monstr;
+	void Restart()
+	{
+		hero = Hero(10, 0, 0, 2, L"Nigga");
+		monstr = Monstr(15, 5, 2, 1,L"Spady");
+		win = 0;
+		gameover = 0;
+		hero.SetEnemy(&monstr);
+		monstr.SetEnemy(&hero);
+		for (int i = 0; i < 10; i++)
+		{
+			for (int j = 0; j < 20; j++)
+			{
+				field[i][j] = new int(0);
+				*field[i][j] = (rand() % 5) + 1;
+
+			}
+		}
+	}
 	void SlideStrings()
 	{
 		for (int j = 19; j > 1; j--)
@@ -108,14 +190,18 @@ public:
 			}
 		}
 	}
-	Game() :hero(10, 0, 0,L"Nigga"), monstr(5,2,1,3,L"Spady")
+	Game() :hero(10, 0, 0,2,L"Nigga"), monstr(15,5,2,1,L"Spady")
 	{
+		win = 0;
+		gameover = 0;
+		hero.SetEnemy(&monstr);
+		monstr.SetEnemy(&hero);
 		for (int i = 0; i < 10; i++)
 		{
 			for (int j = 0; j < 20; j++)
 			{
 				field[i][j] = new int(0);
-				*field[i][j] = (rand() % 4) + 1;
+				*field[i][j] = (rand() % 5) + 1;
 				
 			}
 		}
@@ -139,7 +225,11 @@ public:
 	{
 			clerselect();
 			int type = Get(x, y);
-			NextSqr(x, y, type);
+			if (type == 0)
+				return;
+			int col=NextSqr(x, y, type);
+			if (col < 2)
+				return;
 			for (int i = 0; i < 10; i++)
 			{
 				for (int j = 0; j < 20; j++)
@@ -150,10 +240,21 @@ public:
 					}
 				}
 			}
+			hero.DoStep(type, col);
+			monstr.DoStep(0, 0);
 			for (int i = 0; i < 20;i++)
 				FallColone(i);
 			for (int i = 0; i < 10; i++)
 				SlideStrings();
+			if (!hero.life)
+			{
+				gameover = 1;
+			}
+			if (hero.life && !monstr.life)
+			{
+				win=1;
+			}
+
 	}
 	int NextSqr(int x, int y, int type)
 	{
