@@ -4,6 +4,7 @@
 class InfoH
 {
 public:
+	HWND DMG;
 	HWND HP;
 	HWND SH;
 	HWND EN;
@@ -30,10 +31,18 @@ public:
 		_itot_s(hp, str, 10);
 		SetWindowText(EN, str);
 	}
+	void SetDMG(int dmg)
+	{
+		dmg = -dmg;
+		TCHAR str[30];
+		_stprintf_s(str, 30, L"%d", dmg);
+		SetWindowText(DMG, str);
+	}
 };
 class InfoM
 {
 public:
+	HWND DMG;
 	HWND HP;
 	HWND SH;
 	HWND TIMING;
@@ -67,6 +76,13 @@ public:
 		_stprintf_s(str, 30, L"%d", att);
 		SetWindowText(ATTAK, str);
 	}
+	void SetDMG(int dmg)
+	{
+		dmg = -dmg;
+		TCHAR str[30];
+		_stprintf_s(str, 30, L"%d", dmg);
+		SetWindowText(DMG, str);
+	}
 };
 
 class GameDlg
@@ -83,6 +99,7 @@ public:
 	void Cls_OnCreate(HWND hwnd);
 	void UpdateAll();
 	bool trig;
+	HWND hwnd;
 	InfoH HeroInfo;
 	InfoM MonstrInfo;
 	Game game;

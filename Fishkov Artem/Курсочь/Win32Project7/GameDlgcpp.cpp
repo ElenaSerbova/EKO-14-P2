@@ -31,29 +31,48 @@ void GameDlg::UpdateAll()
 	ptr->HeroInfo.SetSH(ptr->game.hero.defence);
 	ptr->HeroInfo.SetEN(ptr->game.hero.concentration);
 	ptr->HeroInfo.SetNAME(ptr->game.hero.name);
+	ptr->HeroInfo.SetDMG(ptr->game.hero.TakenDMG);
+
 
 	ptr->MonstrInfo.SetHP(ptr->game.monstr.hp);
 	ptr->MonstrInfo.SetSH(ptr->game.monstr.defence);
 	ptr->MonstrInfo.SetTIMER(ptr->game.monstr.curentTime, ptr->game.monstr.timeng);
 	ptr->MonstrInfo.SetNAME(ptr->game.monstr.name);
 	ptr->MonstrInfo.SetATTAK(ptr->game.monstr.attack);
+	ptr->MonstrInfo.SetDMG(ptr->game.monstr.TakenDMG);
+	if (game.monstr.attacket != 0)
+	{
+		ShowWindow(ptr->MonstrInfo.DMG, SW_SHOW);
+		SetTimer(ptr->hwnd, NULL, 1000, NULL);
+	}
+	if (game.hero.attacket != 0)
+	{
+		ShowWindow(ptr->HeroInfo.DMG, SW_SHOW);
+		SetTimer(ptr->hwnd, NULL, 1000, NULL);
+	}
+	
 }
 
 BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 {
+	ptr->hwnd = hwnd;
 	ptr->HeroInfo.HP = GetDlgItem(hwnd, H_HP);
 	ptr->HeroInfo.SH = GetDlgItem(hwnd, H_SHIELD);
 	ptr->HeroInfo.EN = GetDlgItem(hwnd, H_ENERGY);
 	ptr->HeroInfo.NAME = GetDlgItem(hwnd, Name);
+	ptr->HeroInfo.DMG = GetDlgItem(hwnd, HDMG);
 	
 	ptr->MonstrInfo.HP = GetDlgItem(hwnd, M_HP);
 	ptr->MonstrInfo.SH = GetDlgItem(hwnd, M_SH);
 	ptr->MonstrInfo.TIMING = GetDlgItem(hwnd, M_TIMER);
 	ptr->MonstrInfo.NAME = GetDlgItem(hwnd, MonstrName);
 	ptr->MonstrInfo.ATTAK = GetDlgItem(hwnd, M_ATK);
-
+	ptr->MonstrInfo.DMG = GetDlgItem(hwnd, MDMG);
+	ShowWindow(ptr->MonstrInfo.DMG, SW_HIDE);
+	ShowWindow(ptr->HeroInfo.DMG, SW_HIDE);
 	ptr->trig = 0;
 	ptr->Back = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP1));
+	
 	HeroIconSpace = CreateWindow(L"STATIC", NULL, WS_VISIBLE | WS_CHILD | SS_BITMAP,10,520, 275, 353,hwnd, NULL, GetModuleHandle(0),NULL);
 	MonstrIconSpace = CreateWindow(L"STATIC", NULL, WS_VISIBLE | WS_CHILD | SS_BITMAP, 820, 520, 275, 353, hwnd, NULL, GetModuleHandle(0), NULL);
 	ptr->Hero = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP8));
@@ -62,9 +81,9 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 	ptr->icons[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP3));
 	ptr->icons[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP4));
 	ptr->icons[3] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP5));
-	ptr->icons[4] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP6));
-	ptr->icons[5] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP7));
-	ptr->icons[6] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP8));
+	ptr->icons[4] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP2));
+	ptr->icons[5] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP2));
+	ptr->icons[6] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP2));
 	
 
 	for (int i = 0; i < 10;i++)
@@ -86,6 +105,7 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 
 void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 {
+	
 	TCHAR nom[10];
 	for (int i = 0; i < 10; i++)
 	for (int j = 0; j < 20; j++)
@@ -95,18 +115,19 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 			game.PointTo(j, i);
 		}
 	}
-
+	UpdateAll();
 	if (ptr->game.gameover == 1)
 	{
 		MessageBox(hwnd, L"YOU LOSE!", L"YOU LOSE!", MB_OK);
 		ptr->game.Restart();
+		UpdateAll();
 	}
 	if (ptr->game.win == 1)
 	{
 		MessageBox(hwnd, L"YOU WON!", L"YOU WON!", MB_OK);
 		ptr->game.Restart();
+		UpdateAll();
 	}
-	UpdateAll();
 
 }
 
@@ -135,6 +156,13 @@ BOOL CALLBACK GameDlg::DlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lP
 
 		EndPaint(hwnd, &ps);
 
+		return 0;
+	case WM_TIMER:
+		ShowWindow(ptr->MonstrInfo.DMG, SW_HIDE);
+		 
+
+		ShowWindow(ptr->HeroInfo.DMG, SW_HIDE);
+		KillTimer(hwnd, NULL);
 		return 0;
 
 	}

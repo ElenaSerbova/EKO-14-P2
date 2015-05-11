@@ -3,6 +3,8 @@
 class creature
 {
 public:
+	bool attacket;
+	int TakenDMG;
 	bool life;
 	int hp;
 	int attack;
@@ -15,6 +17,7 @@ public:
 	}
 	creature()
 	{
+		TakenDMG = 0;
 		hp=0;
 		attack=0;
 		defence=0;
@@ -23,6 +26,9 @@ public:
 	}
 	creature(int hp,int attack,int defence,TCHAR*name)
 	{
+		TakenDMG = 0;
+		if (TakenDMG < 0)
+			TakenDMG = 0;
 		this->hp = hp;
 		this->attack = attack;
 		this->defence = defence;
@@ -31,7 +37,10 @@ public:
 	}
 	virtual void TakeDMG(int dmg)
 	{
-		hp = hp - (dmg-defence);
+		attacket = 1;
+		TakenDMG = (dmg - defence);
+		hp = hp - TakenDMG;	
+		
 		if (hp <= 0)
 		{
 			life = 0;
@@ -82,7 +91,11 @@ public:
 	}
 	void TakeDMG(int dmg)
 	{
-		hp = hp - (dmg - defence);
+		attacket = 1;
+		TakenDMG = (dmg - defence);
+		if (TakenDMG < 0)
+			TakenDMG = 0;
+		hp = hp - TakenDMG;
 		if (hp <= 0)
 		{
 			life = 0;
@@ -113,6 +126,8 @@ public:
 			break;
 		case 3:
 			hp += col + concentration;
+			attacket = 1;
+			TakenDMG = (col + concentration)*-1;
 			concentration = 0;
 			break;
 		case 4:
@@ -140,7 +155,7 @@ public:
 	void Restart()
 	{
 		hero = Hero(10, 0, 0, 2, L"Nigga");
-		monstr = Monstr(15, 5, 2, 1,L"Spady");
+		monstr = Monstr(15, 5, 2, 1,L"Мамка твоя");
 		win = 0;
 		gameover = 0;
 		hero.SetEnemy(&monstr);
@@ -223,6 +238,8 @@ public:
 	}
 	void PointTo(int x, int y)
 	{
+			monstr.attacket = 0;
+			hero.attacket = 0;
 			clerselect();
 			int type = Get(x, y);
 			if (type == 0)
