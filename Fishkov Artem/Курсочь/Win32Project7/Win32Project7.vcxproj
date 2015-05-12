@@ -82,11 +82,13 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameDlg.h" />
     <ClInclude Include="Header.h" />
+    <ClInclude Include="MenuDlg.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameDlgcpp.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MenuDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Win32Project7.rc" />
@@ -99,8 +101,12 @@
     <Image Include="4.bmp" />
     <Image Include="5.bmp" />
     <Image Include="6.bmp" />
+    <Image Include="bitmap11.bmp" />
+    <Image Include="HERO.bmp" />
+    <Image Include="HERO.png" />
     <Image Include="img" />
     <Image Include="img.bmp" />
+    <Image Include="SPIDER.bmp" />
     <Image Include="Test.bmp" />
     <Image Include="Test2.bmp" />
   </ItemGroup>

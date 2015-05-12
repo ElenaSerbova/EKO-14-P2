@@ -27,12 +27,18 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MenuDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameDlgcpp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -73,6 +79,18 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Test2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bitmap11.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="HERO.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="HERO.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="SPIDER.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
