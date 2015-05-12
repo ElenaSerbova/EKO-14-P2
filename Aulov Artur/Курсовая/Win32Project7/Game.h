@@ -7,6 +7,7 @@ class Game
 	int* field[11][10];
 	int tmp_i, tmp_j;
 	bool buttomselect = true;
+	bool reset = false;
 public:
 	int gettmpi(){ return tmp_i; }
 	int gettmpj(){ return tmp_j; }
@@ -83,77 +84,133 @@ public:
 		}
 	}
 
-	
+	bool isSWAP(int i, int j)
+	{
+		if (field[i][j] == field[tmp_i][tmp_j + 1] ||
+			field[i][j] == field[tmp_i][tmp_j - 1] ||
+			field[i][j] == field[tmp_i + 1][tmp_j] ||
+			field[i][j] == field[tmp_i - 1][tmp_j]) return true;
+		else return false;
+	}
 
 	void PointTo(int i, int j)
 	{
-		if (i > 0)
+		if (i > 0 && *field[i][j] != 6 && *field[i][j] != 0)
 		{
-
 			ClearSelect();
 			int type = Get(i, j);
 			if (buttomselect == true)
 			{
 				tmp_i = i;
 				tmp_j = j;
+				buttomselect = false;
 			}
 			if (buttomselect != true)
 			{
-				*field[i][j] = Get(tmp_i, tmp_j);
-				*field[tmp_i][tmp_j] = type;
+				if (isSWAP(i, j))
+				{
+					*field[i][j] = Get(tmp_i, tmp_j);
+					*field[tmp_i][tmp_j] = type;
+					buttomselect = true;
+				}
+				else
+				{
+					tmp_i = i;
+					tmp_j = j;
+					buttomselect = false;
+				}
 			}
-			if (buttomselect == true) buttomselect = false;
-			else buttomselect = true;
-			/*NextSqr(x, y, type);*/
-			/*for (int i = 0; i < 11; i++)
+			while (select3match())
 			{
-			for (int j = 0; j < 10; j++)
-			{
-			if (selectfield[i][j] == 1)
-			{
-			*field[i][j] = 0;
+				for (int i = 0; i < 11; i++)
+				{
+					for (int j = 0; j < 10; j++)
+					{
+						if (selectfield[i][j] == 1)
+						{
+							*field[i][j] = 0;
+						}
+					}
+				}
+				for (int j = 0; j < 10; j++)
+					FallColone(j);
 			}
-			}
-			}*/
-			/*for (int j = 0; j < 10; j++)
-				FallColone(j);*/
-
 		}
 	}
-	int NextSqr(int i, int j, int type)
+
+	bool select3match()
 	{
-		/*if (Get(x, y) == type)
+		reset = false;
+		for (int i = 0; i < 11; i++)
 		{
-			if (y > 1)
+			for (int j = 0; j < 10; j++)
 			{
-				if (type == *field[x][y - 1] && *field[x][y - 2]);
+				if (*field[i][j] != 6 && *field[i][j] != 0)
+				{
+					if (j <= 7)
+					{
+						if (*field[i][j] == *field[i][j + 1] && *field[i][j] == *field[i][j + 2])
+						{
+							selectfield[i][j] = selectfield[i][j+1] = selectfield[i][j+2] = 1;
+							reset = true;
+						}
+					}
+					if (i <= 8)
+					{
+						if (*field[i][j] == *field[i + 1][j] && *field[i][j] == *field[i + 2][j])
+						{
+							selectfield[i][j] = selectfield[i + 1][j] = selectfield[i + 2][j] = 1;
+							reset = true;
+						}
+					}
+				}
+			}
+		}
+
+		return reset;
+		/*for (int i = 0; i < 11; i++)
+		{
+			for (int j = 0; j < 10; j++)
+			{
+				if (*field[i][j] != 6 && *field[i][j] != 0)
+				{
+					if (i <= 8)
+					{
+						if (*field[i][j] == *field[i+1][j] && *field[i][j] == *field[i+2][j])
+						{
+							selectfield[i][j] = selectfield[i+1][j] = selectfield[i+2][j] = 1;
+							return true;
+						}
+					}
+				}
 			}
 		}*/
+
 		/*int col=0;
 		if (Get(x, y) == type)
 		{
-			selectfield[y][x] = 1;
-			col++;
-			if (x > 0)
-			{
-				if (selectfield[y][x-1]!=1)
-				col+=NextSqr(x - 1, y, type);
-			}
-			if (y > 0)
-			{
-				if (selectfield[y-1][x] != 1)
-				col += NextSqr(x, y-1, type);
-			}
-			if (x < 9)
-			{
-				if (selectfield[y][x + 1] != 1)
-				col += NextSqr(x + 1, y, type);
-			}
-			if (y < 9)
-			{
-				if (selectfield[y+1][x] != 1)
-				col += NextSqr(x, y+1, type);
-			}
+		selectfield[y][x] = 1;
+		col++;
+		if (x > 0)
+		{
+		if (selectfield[y][x-1]!=1)
+		col+=NextSqr(x - 1, y, type);
+		}
+		if (y > 0)
+		{
+		if (selectfield[y-1][x] != 1)
+		col += NextSqr(x, y-1, type);
+		}
+		if (x < 9)
+		{
+		if (selectfield[y][x + 1] != 1)
+		col += NextSqr(x + 1, y, type);
+		}
+		if (y < 9)
+		{
+		if (selectfield[y+1][x] != 1)
+		col += NextSqr(x, y+1, type);
+		}
 		}
 		return col;*/
 	}
