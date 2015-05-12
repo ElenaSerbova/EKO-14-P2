@@ -93,5 +93,17 @@
     <Image Include="SPIDER.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="SPIDER_ATK.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="SPIDER_DMG.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="HERO_ATK.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="HERO_DMG.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

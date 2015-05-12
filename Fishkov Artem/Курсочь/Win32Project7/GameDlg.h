@@ -4,6 +4,9 @@
 class InfoH
 {
 public:
+	HBITMAP NORMAL;
+	HBITMAP TAKE_DMG;
+	HBITMAP ATTACK;
 	HWND DMG;
 	HWND HP;
 	HWND SH;
@@ -42,6 +45,9 @@ public:
 class InfoM
 {
 public:
+	HBITMAP NORMAL;
+	HBITMAP TAKE_DMG;
+	HBITMAP ATTACK;
 	HWND DMG;
 	HWND HP;
 	HWND SH;

@@ -104,9 +104,13 @@
     <Image Include="bitmap11.bmp" />
     <Image Include="HERO.bmp" />
     <Image Include="HERO.png" />
+    <Image Include="HERO_ATK.bmp" />
+    <Image Include="HERO_DMG.bmp" />
     <Image Include="img" />
     <Image Include="img.bmp" />
     <Image Include="SPIDER.bmp" />
+    <Image Include="SPIDER_ATK.bmp" />
+    <Image Include="SPIDER_DMG.bmp" />
     <Image Include="Test.bmp" />
     <Image Include="Test2.bmp" />
   </ItemGroup>
