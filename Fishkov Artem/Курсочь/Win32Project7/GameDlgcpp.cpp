@@ -28,11 +28,12 @@ void GameDlg::UpdateAll()
 		}
 
 	ptr->HeroInfo.SetHP(ptr->game.hero.hp);
-	ptr->HeroInfo.SetSH(ptr->game.hero.defence);
+	ptr->HeroInfo.SetSH(ptr->game.hero.defence, ptr->game.hero.shildcurtime, ptr->game.hero.shildtime);
 	ptr->HeroInfo.SetEN(ptr->game.hero.concentration);
 	ptr->HeroInfo.SetNAME(ptr->game.hero.name);
 	ptr->HeroInfo.SetDMG(ptr->game.hero.TakenDMG);
-
+	if (game.hero.Heal)
+	ptr->HeroInfo.SetHEAL(ptr->game.hero.Heal);
 
 	ptr->MonstrInfo.SetHP(ptr->game.monstr.hp);
 	ptr->MonstrInfo.SetSH(ptr->game.monstr.defence);
@@ -40,41 +41,70 @@ void GameDlg::UpdateAll()
 	ptr->MonstrInfo.SetNAME(ptr->game.monstr.name);
 	ptr->MonstrInfo.SetATTAK(ptr->game.monstr.attack);
 	ptr->MonstrInfo.SetDMG(ptr->game.monstr.TakenDMG);
+	if (game.monstr.Heal)
+	ptr->MonstrInfo.SetHEAL(ptr->game.monstr.Heal);
+	if (game.monstr.Heal)
+	{
+		ShowWindow(ptr->MonstrInfo.HEAL, SW_SHOW);
+		SetTimer(ptr->hwnd, NULL, 2000, NULL);
+		SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->MonstrInfo.NORMAL);
+	}
+	else
+		ShowWindow(ptr->MonstrInfo.HEAL, SW_HIDE);
+
+	if (game.hero.Heal)
+	{
+		SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->HeroInfo.NORMAL);
+		ShowWindow(ptr->HeroInfo.HEAL, SW_SHOW);
+		SetTimer(ptr->hwnd, NULL, 2000, NULL);
+	}
+	else
+		ShowWindow(ptr->HeroInfo.HEAL, SW_HIDE);
+
+
 	if (game.monstr.attacket != 0)
 	{
 		ShowWindow(ptr->MonstrInfo.DMG, SW_SHOW);
-		SetTimer(ptr->hwnd, NULL, 1000, NULL);
+		SetTimer(ptr->hwnd, NULL, 2000, NULL);
 		SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->MonstrInfo.TAKE_DMG);
 		SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->HeroInfo.ATTACK);
 	}
+
 	if (game.hero.attacket != 0)
 	{
 
 		ShowWindow(ptr->HeroInfo.DMG, SW_SHOW);
-		SetTimer(ptr->hwnd, NULL, 1000, NULL);
+		SetTimer(ptr->hwnd, NULL, 2000, NULL);
 		SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->MonstrInfo.ATTACK);
 		SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->HeroInfo.TAKE_DMG);
 	}
+	else
+		ShowWindow(ptr->HeroInfo.DMG, SW_HIDE);
 	
 }
 
 BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 {
+	monsterstep = 0;
 	ptr->hwnd = hwnd;
 	ptr->HeroInfo.HP = GetDlgItem(hwnd, H_HP);
 	ptr->HeroInfo.SH = GetDlgItem(hwnd, H_SHIELD);
 	ptr->HeroInfo.EN = GetDlgItem(hwnd, H_ENERGY);
 	ptr->HeroInfo.NAME = GetDlgItem(hwnd, Name);
 	ptr->HeroInfo.DMG = GetDlgItem(hwnd, HDMG);
-	
+	ptr->HeroInfo.HEAL = GetDlgItem(hwnd, H_HEAL);
+
 	ptr->MonstrInfo.HP = GetDlgItem(hwnd, M_HP);
 	ptr->MonstrInfo.SH = GetDlgItem(hwnd, M_SH);
 	ptr->MonstrInfo.TIMING = GetDlgItem(hwnd, M_TIMER);
 	ptr->MonstrInfo.NAME = GetDlgItem(hwnd, MonstrName);
 	ptr->MonstrInfo.ATTAK = GetDlgItem(hwnd, M_ATK);
 	ptr->MonstrInfo.DMG = GetDlgItem(hwnd, MDMG);
+	ptr->MonstrInfo.HEAL = GetDlgItem(hwnd, M_HEAL);
 	ShowWindow(ptr->MonstrInfo.DMG, SW_HIDE);
 	ShowWindow(ptr->HeroInfo.DMG, SW_HIDE);
+	ShowWindow(ptr->MonstrInfo.HEAL, SW_HIDE);
+	ShowWindow(ptr->HeroInfo.HEAL, SW_HIDE);
 	ptr->trig = 0;
 	ptr->Back = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP1));
 	
@@ -130,12 +160,14 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 		MessageBox(hwnd, L"YOU LOSE!", L"YOU LOSE!", MB_OK);
 		ptr->game.Restart();
 		UpdateAll();
+		
 	}
 	if (ptr->game.win == 1)
 	{
 		MessageBox(hwnd, L"YOU WON!", L"YOU WON!", MB_OK);
 		ptr->game.Restart();
 		UpdateAll();
+		
 	}
 
 }
@@ -167,14 +199,22 @@ BOOL CALLBACK GameDlg::DlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lP
 
 		return 0;
 	case WM_TIMER:
-		SendMessage((HWND)ptr->MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->MonstrInfo.NORMAL);
-		SendMessage((HWND)ptr->HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->HeroInfo.NORMAL);
-		ShowWindow(ptr->MonstrInfo.DMG, SW_HIDE);
-		 
+		
 
-		ShowWindow(ptr->HeroInfo.DMG, SW_HIDE);
-		KillTimer(hwnd, NULL);
-		return 0;
+			SendMessage((HWND)ptr->MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->MonstrInfo.NORMAL);
+			SendMessage((HWND)ptr->HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->HeroInfo.NORMAL);
+			ShowWindow(ptr->MonstrInfo.DMG, SW_HIDE);
+
+
+			ShowWindow(ptr->HeroInfo.DMG, SW_HIDE);
+			ShowWindow(ptr->MonstrInfo.HEAL, SW_HIDE);
+
+
+			ShowWindow(ptr->HeroInfo.HEAL, SW_HIDE);
+			KillTimer(hwnd, NULL);
+			return 0;
+			
+	
 
 	}
 	return FALSE;

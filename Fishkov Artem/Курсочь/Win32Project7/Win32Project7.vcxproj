@@ -83,6 +83,7 @@
     <ClInclude Include="GameDlg.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="MenuDlg.h" />
+    <ClInclude Include="Monstrs.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
