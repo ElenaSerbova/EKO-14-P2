@@ -1,150 +1,11 @@
 #pragma once
 #include <iostream>
-class creature
-{
-public:
-	bool attacket;
-	int TakenDMG;
-	bool life;
-	int hp;
-	int attack;
-	int defence;
-	creature*enemy;
-	TCHAR name[30];
-	void SetEnemy(creature*enemy)
-	{
-		this->enemy = enemy;	
-	}
-	creature()
-	{
-		TakenDMG = 0;
-		hp=0;
-		attack=0;
-		defence=0;
-		_tcscpy_s(this->name, L"NONAME");
-		life = 1;
-	}
-	creature(int hp,int attack,int defence,TCHAR*name)
-	{
-		TakenDMG = 0;
-		if (TakenDMG < 0)
-			TakenDMG = 0;
-		this->hp = hp;
-		this->attack = attack;
-		this->defence = defence;
-		_tcscpy_s(this->name, name);	
-		life = 1;
-	}
-	virtual void TakeDMG(int dmg)
-	{
-		attacket = 1;
-		TakenDMG = (dmg - defence);
-		hp = hp - TakenDMG;	
-		
-		if (hp <= 0)
-		{
-			life = 0;
-		}
-	}
-	virtual void DoStep(int type, int col) = 0;
-};
-class Monstr :public creature
-{
-public:
-	int timeng;
-	int curentTime;
-	Monstr()
-	{
-	}
-	Monstr(int hp, int attack, int defence,int timeng, TCHAR*name) : creature(hp, attack, defence, name)
-	{
-		this->timeng = timeng;
-		curentTime = 0;
-	}
-	void DoStep(int type, int col)
-	{
-		if (timeng == curentTime)
-		{
-			enemy->TakeDMG(attack);
-			curentTime = 0;
-
-		}
-		else
-		{
-			curentTime++;
-		}
-	}
-};
-class Hero :public creature
-{
-public:
-	int concentration;
-	int shildtime;
-	int shildcurtime;
-	Hero(int hp, int attack, int defence,int shildtime,TCHAR*name) : creature(hp, attack, defence, name)
-	{
-		concentration = 0;
-		this->shildtime = shildtime;
-	}
-	Hero()
-	{
-	}
-	void TakeDMG(int dmg)
-	{
-		attacket = 1;
-		TakenDMG = (dmg - defence);
-		if (TakenDMG < 0)
-			TakenDMG = 0;
-		hp = hp - TakenDMG;
-		if (hp <= 0)
-		{
-			life = 0;
-		}
-
-		if (defence != 0)
-		{
-			if (shildcurtime == shildtime)
-			{
-				defence = 0;
-			}
-			shildcurtime++;
-		}
-	}
-	void DoStep(int type,int col)
-	{
-		
-		switch (type)
-		{
-		case 1:
-			enemy->TakeDMG(col + concentration);
-			concentration = 0;
-			break;
-		case 2:
-			defence = col + concentration;
-			shildcurtime = 0;
-			concentration = 0;
-			break;
-		case 3:
-			hp += col + concentration;
-			attacket = 1;
-			TakenDMG = (col + concentration)*-1;
-			concentration = 0;
-			break;
-		case 4:
-			concentration = col;
-			break;
-		case 5:
-			enemy->TakeDMG(col + concentration);
-			concentration = 0;
-			break;
-		}
-		
-	}
-};
-
+#include "Monstrs.h"
 
 class Game
 {
+	int lvl;
+	Monstr Lvls[10];
 	bool selectfield[10][20];
 	int* field[10][20];
 public:
@@ -152,10 +13,17 @@ public:
 	bool gameover;
 	Hero hero;
 	Monstr monstr;
+	void SetMonsters()
+	{
+		Lvls[3] = Monstr(10,2,1,0,L"Rat");
+		Lvls[1] = Monstr(20, 5, 3, 2, L"Spider");
+		Lvls[2] = Monstr(50, 20, 1, 8, L"Golem");
+		Lvls[0] = Monstr(10, 5, 6, 1, L"Skull");
+	}
 	void Restart()
 	{
 		hero = Hero(10, 0, 0, 2, L"Nigga");
-		monstr = Monstr(15, 5, 2, 1,L"Мамка твоя");
+		monstr = Lvls[lvl];
 		win = 0;
 		gameover = 0;
 		hero.SetEnemy(&monstr);
@@ -205,8 +73,11 @@ public:
 			}
 		}
 	}
-	Game() :hero(10, 0, 0,2,L"Nigga"), monstr(15,5,2,1,L"Spady")
+	Game() :hero(10, 0, 0,2,L"Nigga")
 	{
+		SetMonsters();
+		lvl = 0;
+		monstr = Lvls[lvl];
 		win = 0;
 		gameover = 0;
 		hero.SetEnemy(&monstr);
@@ -238,6 +109,8 @@ public:
 	}
 	void PointTo(int x, int y)
 	{
+			monstr.Heal = 0;
+			hero.Heal = 0;
 			monstr.attacket = 0;
 			hero.attacket = 0;
 			clerselect();
@@ -270,6 +143,7 @@ public:
 			if (hero.life && !monstr.life)
 			{
 				win=1;
+				lvl++;
 			}
 
 	}

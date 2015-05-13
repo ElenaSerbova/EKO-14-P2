@@ -30,6 +30,9 @@
     <ClInclude Include="MenuDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Monstrs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

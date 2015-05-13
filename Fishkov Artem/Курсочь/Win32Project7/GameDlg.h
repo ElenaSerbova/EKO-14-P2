@@ -7,6 +7,7 @@ public:
 	HBITMAP NORMAL;
 	HBITMAP TAKE_DMG;
 	HBITMAP ATTACK;
+	HWND HEAL;
 	HWND DMG;
 	HWND HP;
 	HWND SH;
@@ -16,12 +17,13 @@ public:
 	{
 		TCHAR str[30];
 		_itot_s(hp,str,10);
+		
 		SetWindowText(HP, str);
 	}
-	void SetSH(int hp)
+	void SetSH(int sh,int shct,int shtt)
 	{
 		TCHAR str[30];
-		_itot_s(hp, str, 10);
+		_stprintf_s(str, 30, L"%d  (%d/%d)", sh,shct,shtt);
 		SetWindowText(SH, str);
 	}
 	void SetNAME(TCHAR * name)
@@ -41,6 +43,15 @@ public:
 		_stprintf_s(str, 30, L"%d", dmg);
 		SetWindowText(DMG, str);
 	}
+	void SetHEAL(int hp)
+	{
+
+			TCHAR str[30];
+			_stprintf_s(str, 30, L"+%d", hp);
+			SetWindowText(HEAL, str);
+
+		
+	}
 };
 class InfoM
 {
@@ -48,6 +59,7 @@ public:
 	HBITMAP NORMAL;
 	HBITMAP TAKE_DMG;
 	HBITMAP ATTACK;
+	HWND HEAL;
 	HWND DMG;
 	HWND HP;
 	HWND SH;
@@ -89,6 +101,15 @@ public:
 		_stprintf_s(str, 30, L"%d", dmg);
 		SetWindowText(DMG, str);
 	}
+	void SetHEAL(int hp)
+	{
+		
+			TCHAR str[30];
+			_stprintf_s(str, 30, L"+%d", hp);
+			SetWindowText(HEAL, str);
+
+		
+	}
 };
 
 class GameDlg
@@ -96,6 +117,7 @@ class GameDlg
 public:
 	GameDlg(void);
 public:
+	bool monsterstep;
 	~GameDlg(void);
 	static BOOL CALLBACK DlgProc(HWND hWnd, UINT mes, WPARAM wp, LPARAM lp);
 	static GameDlg* ptr;
