@@ -47,6 +47,9 @@
     <ClCompile Include="MenuDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Info.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Win32Project7.rc">
@@ -118,6 +121,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="RAT_DMG.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Help.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

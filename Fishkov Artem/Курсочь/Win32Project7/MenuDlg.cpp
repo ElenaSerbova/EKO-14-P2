@@ -1,5 +1,6 @@
 #include "MenuDlg.h"
 #include "GameDlg.h"
+#include "Info.h"
 MenuDlg* MenuDlg::ptr = NULL;
 
 BOOL CALLBACK MenuDlg::DlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -17,9 +18,9 @@ BOOL CALLBACK MenuDlg::DlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lP
 void MenuDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 {
 
-	GameDlg dlg;
+	InfoDlg dlg;
 	ShowWindow(hwnd, SW_HIDE);
-	DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG1), NULL, GameDlg::DlgProc);
+	DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG4), NULL, InfoDlg::DlgProc);
 	ShowWindow(hwnd, SW_SHOW);	
 
 	

@@ -14,4 +14,5 @@ public:
 	void Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify);
 	void Cls_OnCreate(HWND hwnd);
 	HBITMAP pages[3];
+	HWND Static;
 };
