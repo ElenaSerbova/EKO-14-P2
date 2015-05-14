@@ -82,6 +82,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameDlg.h" />
     <ClInclude Include="Header.h" />
+    <ClInclude Include="Info.h" />
     <ClInclude Include="MenuDlg.h" />
     <ClInclude Include="Monstrs.h" />
     <ClInclude Include="resource.h" />
@@ -109,6 +110,9 @@
     <Image Include="HERO_DMG.bmp" />
     <Image Include="img" />
     <Image Include="img.bmp" />
+    <Image Include="RAT.bmp" />
+    <Image Include="RAT_ATK.bmp" />
+    <Image Include="RAT_DMG.bmp" />
     <Image Include="SPIDER.bmp" />
     <Image Include="SPIDER_ATK.bmp" />
     <Image Include="SPIDER_DMG.bmp" />

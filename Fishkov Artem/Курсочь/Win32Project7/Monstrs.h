@@ -4,6 +4,7 @@
 class creature
 {
 public:
+	HBITMAP pic[3];
 	int Heal;
 	bool attacket;
 	int TakenDMG;

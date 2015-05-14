@@ -33,6 +33,9 @@
     <ClInclude Include="Monstrs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Info.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -106,6 +109,15 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="HERO_DMG.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RAT.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RAT_ATK.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RAT_DMG.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

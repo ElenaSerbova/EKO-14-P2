@@ -15,14 +15,27 @@ public:
 	Monstr monstr;
 	void SetMonsters()
 	{
-		Lvls[3] = Monstr(10,2,1,0,L"Rat");
-		Lvls[1] = Monstr(20, 5, 3, 2, L"Spider");
+		Lvls[1] = Monstr(10,2,1,0,L"Rat");
+		Lvls[0] = Monstr(20, 5, 3, 2, L"Spider");
 		Lvls[2] = Monstr(50, 20, 1, 8, L"Golem");
-		Lvls[0] = Monstr(10, 5, 6, 1, L"Skull");
+		Lvls[3] = Monstr(10, 5, 6, 1, L"Skull");
+
+		Lvls[0].pic[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP13));
+		Lvls[0].pic[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP14));
+		Lvls[0].pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP15));
+
+		Lvls[1].pic[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP18));
+		Lvls[1].pic[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP19));
+		Lvls[1].pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP20));
+
+
 	}
 	void Restart()
 	{
 		hero = Hero(10, 0, 0, 2, L"Nigga");
+		hero.pic[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP12));
+		hero.pic[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP16));
+		hero.pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP17));
 		monstr = Lvls[lvl];
 		win = 0;
 		gameover = 0;
@@ -75,6 +88,9 @@ public:
 	}
 	Game() :hero(10, 0, 0,2,L"Nigga")
 	{
+		hero.pic[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP12));
+		hero.pic[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP16));
+		hero.pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP17));
 		SetMonsters();
 		lvl = 0;
 		monstr = Lvls[lvl];

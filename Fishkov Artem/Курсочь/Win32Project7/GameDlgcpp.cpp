@@ -47,14 +47,14 @@ void GameDlg::UpdateAll()
 	{
 		ShowWindow(ptr->MonstrInfo.HEAL, SW_SHOW);
 		SetTimer(ptr->hwnd, NULL, 2000, NULL);
-		SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->MonstrInfo.NORMAL);
+		SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.monstr.pic[0]);
 	}
 	else
 		ShowWindow(ptr->MonstrInfo.HEAL, SW_HIDE);
 
 	if (game.hero.Heal)
 	{
-		SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->HeroInfo.NORMAL);
+		SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->ptr->game.hero.pic[0]);
 		ShowWindow(ptr->HeroInfo.HEAL, SW_SHOW);
 		SetTimer(ptr->hwnd, NULL, 2000, NULL);
 	}
@@ -66,8 +66,8 @@ void GameDlg::UpdateAll()
 	{
 		ShowWindow(ptr->MonstrInfo.DMG, SW_SHOW);
 		SetTimer(ptr->hwnd, NULL, 2000, NULL);
-		SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->MonstrInfo.TAKE_DMG);
-		SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->HeroInfo.ATTACK);
+		SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.monstr.pic[2]);
+		SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->ptr->game.hero.pic[1]);
 	}
 
 	if (game.hero.attacket != 0)
@@ -75,8 +75,8 @@ void GameDlg::UpdateAll()
 
 		ShowWindow(ptr->HeroInfo.DMG, SW_SHOW);
 		SetTimer(ptr->hwnd, NULL, 2000, NULL);
-		SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->MonstrInfo.ATTACK);
-		SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->HeroInfo.TAKE_DMG);
+		SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)game.monstr.pic[1]);
+		SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->ptr->game.hero.pic[2]);
 	}
 	else
 		ShowWindow(ptr->HeroInfo.DMG, SW_HIDE);
@@ -113,9 +113,6 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 	ptr->HeroInfo.NORMAL = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP12));
 	ptr->HeroInfo.ATTACK = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP16));
 	ptr->HeroInfo.TAKE_DMG = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP17));
-	ptr->MonstrInfo.NORMAL = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP13));
-	ptr->MonstrInfo.ATTACK = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP14));
-	ptr->MonstrInfo.TAKE_DMG = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP15));
 	ptr->icons[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP2));
 	ptr->icons[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP3));
 	ptr->icons[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP4));
@@ -134,8 +131,8 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 		*field[i][j] = CreateWindowEx(NULL, L"BUTTON",nom, WS_CHILD | WS_VISIBLE | BS_FLAT, 50+j*50, 15+i*50, 50, 50, hwnd, NULL, GetModuleHandle(0), NULL);
 		SetWindowLong((HWND)*field[i][j], GWL_STYLE, ::GetWindowLong((HWND)*field[i][j], GWL_STYLE) | BS_BITMAP | BS_FLAT);
 	}
-	SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->HeroInfo.NORMAL);
-	SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)MonstrInfo.NORMAL);
+	SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.hero.pic[0]);
+	SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.monstr.pic[0]);
 
 	UpdateAll();
 	
@@ -201,8 +198,8 @@ BOOL CALLBACK GameDlg::DlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lP
 	case WM_TIMER:
 		
 
-			SendMessage((HWND)ptr->MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->MonstrInfo.NORMAL);
-			SendMessage((HWND)ptr->HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->HeroInfo.NORMAL);
+		SendMessage((HWND)ptr->MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.monstr.pic[0]);
+			SendMessage((HWND)ptr->HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.hero.pic[0]);
 			ShowWindow(ptr->MonstrInfo.DMG, SW_HIDE);
 
 
