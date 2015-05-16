@@ -1,6 +1,11 @@
 #include "GameDlg.h"
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
+DWORD WINAPI PlayEffect(PVOID lpParam)
+{
+	PlaySound(MAKEINTRESOURCE(IDR_WAVE1), GetModuleHandle(NULL), SND_RESOURCE);
+	return 0;
+}
 
 GameDlg* GameDlg::ptr = NULL;
 
@@ -67,10 +72,10 @@ void GameDlg::UpdateAll()
 	if (game.monstr.attacket != 0)
 	{
 		ShowWindow(ptr->MonstrInfo.DMG, SW_SHOW);
-		SetTimer(ptr->hwnd, NULL, 2000, NULL);
+		SetTimer(ptr->hwnd, NULL, 20, NULL);
 		SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.monstr.pic[2]);
 		SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->ptr->game.hero.pic[1]);
-		PlaySound(MAKEINTRESOURCE(IDR_WAVE1),GetModuleHandle(NULL),SND_RESOURCE);
+		CreateThread(NULL, 0,PlayEffect, NULL, 0, NULL);
 	}
 
 	if (game.hero.attacket != 0)

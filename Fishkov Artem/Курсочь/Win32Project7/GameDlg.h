@@ -13,6 +13,8 @@ public:
 	HWND SH;
 	HWND EN;
 	HWND NAME;
+
+
 	void SetHP(int hp)
 	{
 		TCHAR str[30];
@@ -117,6 +119,7 @@ class GameDlg
 public:
 	GameDlg(void);
 public:
+	
 	bool monsterstep;
 	~GameDlg(void);
 	static BOOL CALLBACK DlgProc(HWND hWnd, UINT mes, WPARAM wp, LPARAM lp);
