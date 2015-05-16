@@ -5,12 +5,21 @@ class Game
 {
 	bool selectfield[11][10];
 	int* field[11][10];
-	int tmp_i, tmp_j;
-	bool buttomselect = true;
+	int tmp_i, tmp_j, tmp_i2, tmp_j2;
+	bool secondselect = false;
+	bool buttonselect = false;
 	bool reset = false;
+	int firsti, firstj, secondi, secondj;
 public:
+	bool getreset(){ return reset; }
+	bool getbs(){ return buttonselect; }
+	bool getss(){ return secondselect; }
+	void setbs(int i, int j){ firsti = i; firstj = j; buttonselect = true; secondselect = false; }
+	void unselect(){ secondselect = 0; buttonselect = 0; }
 	int gettmpi(){ return tmp_i; }
 	int gettmpj(){ return tmp_j; }
+	void setselect(int i, int j, bool select){ selectfield[i][j] = select; }
+	bool getselect(int i, int j) { return selectfield[i][j]; }
 	void FallColone(int j)
 	{
 		for (int i = 10; i > 0; i--)
@@ -18,14 +27,14 @@ public:
 			if (*field[i][j] == 0)
 			{
 				int i2=i;
-				while (*field[i2][j]==0&&i2>0)
+				while (*field[i2][j] == 0 && i2 > 0)
 				{
 					i2--;
 				}
-				if (*field[i2][j] != 0)
+				if (*field[i2][j] != 0 )
 				{
 					*field[i][j] = *field[i2][j];
-					*field[i2][j] = 0; 
+					*field[i2][j] = 0;
 				}
 			}
 		}
@@ -84,13 +93,42 @@ public:
 		}
 	}
 
-	bool isSWAP(int i, int j)
+	bool isswap()
 	{
-		if (field[i][j] == field[tmp_i][tmp_j + 1] ||
-			field[i][j] == field[tmp_i][tmp_j - 1] ||
-			field[i][j] == field[tmp_i + 1][tmp_j] ||
-			field[i][j] == field[tmp_i - 1][tmp_j]) return true;
+		if (field[firsti][firstj] == field[secondi][secondj + 1] ||
+			field[firsti][firstj] == field[secondi][secondj - 1] ||
+			field[firsti][firstj] == field[secondi + 1][secondj] ||
+			field[firsti][firstj] == field[secondi - 1][secondj]) return true;
 		else return false;
+	}
+
+	void Click(int i, int j)
+	{
+		if (Get(i, j) == 0 || Get(i, j) == 6)
+		{
+			unselect();
+			return;
+		}
+		if (!buttonselect)
+		{
+			firsti = i;
+			firstj = j;
+			buttonselect = true;
+		}
+		else
+		{
+			secondi = i;
+			secondj = j;
+			buttonselect = false;
+			secondselect = true;
+		}
+	}
+
+	void swap()
+	{
+		int type = Get(firsti, firstj);
+		*field[firsti][firstj] = *field[secondi][secondj];
+		*field[secondi][secondj] = type;
 	}
 
 	void PointTo(int i, int j)
@@ -98,42 +136,46 @@ public:
 		if (i > 0 && *field[i][j] != 6 && *field[i][j] != 0)
 		{
 			ClearSelect();
-			int type = Get(i, j);
-			if (buttomselect == true)
+			if (buttonselect == true)
 			{
 				tmp_i = i;
 				tmp_j = j;
-				buttomselect = false;
+				buttonselect = false;
 			}
-			if (buttomselect != true)
+			if (buttonselect != true)
 			{
-				if (isSWAP(i, j))
+				if (isswap())
 				{
+					int type = Get(i, j);
 					*field[i][j] = Get(tmp_i, tmp_j);
 					*field[tmp_i][tmp_j] = type;
-					buttomselect = true;
+					buttonselect = true;
+					tmp_i2 = i;
+					tmp_j2 = j;
 				}
 				else
 				{
 					tmp_i = i;
 					tmp_j = j;
-					buttomselect = false;
+					buttonselect = false;
 				}
 			}
-			while (select3match())
+		}
+	}
+
+	void delete3match()
+	{
+		for (int i = 0; i < 11; i++)
+		{
+			for (int j = 0; j < 10; j++)
 			{
-				for (int i = 0; i < 11; i++)
+				if (*field[i][j] != 6 && *field[i][j] != 0)
 				{
-					for (int j = 0; j < 10; j++)
+					if (selectfield[i][j] == 1)
 					{
-						if (selectfield[i][j] == 1)
-						{
-							*field[i][j] = 0;
-						}
+						*field[i][j] = 0;
 					}
 				}
-				for (int j = 0; j < 10; j++)
-					FallColone(j);
 			}
 		}
 	}
@@ -151,16 +193,22 @@ public:
 					{
 						if (*field[i][j] == *field[i][j + 1] && *field[i][j] == *field[i][j + 2])
 						{
-							selectfield[i][j] = selectfield[i][j+1] = selectfield[i][j+2] = 1;
-							reset = true;
+							if (*field[i][j] != 6 && *field[i][j] != 0)
+							{
+								selectfield[i][j] = selectfield[i][j + 1] = selectfield[i][j + 2] = 1;
+								reset = true;
+							}
 						}
 					}
 					if (i <= 8)
 					{
 						if (*field[i][j] == *field[i + 1][j] && *field[i][j] == *field[i + 2][j])
 						{
-							selectfield[i][j] = selectfield[i + 1][j] = selectfield[i + 2][j] = 1;
-							reset = true;
+							if (*field[i][j] != 6 && *field[i][j] != 0)
+							{
+								selectfield[i][j] = selectfield[i + 1][j] = selectfield[i + 2][j] = 1;
+								reset = true;
+							}
 						}
 					}
 				}

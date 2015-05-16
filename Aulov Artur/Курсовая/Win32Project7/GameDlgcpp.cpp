@@ -1,5 +1,5 @@
 #include "GameDlg.h"
-
+#pragma once
 GameDlg* GameDlg::ptr = NULL;
 
 GameDlg::GameDlg(void)
@@ -70,6 +70,7 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 					else
 					{
 						game.unselect();
+						game.setbs(i, j);
 					}
 				}
 			}

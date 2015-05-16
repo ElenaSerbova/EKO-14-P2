@@ -27,12 +27,18 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MenuDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameDlgcpp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -61,6 +67,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="BackgroundMenu.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

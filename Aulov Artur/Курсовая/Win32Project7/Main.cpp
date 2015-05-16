@@ -1,5 +1,5 @@
 #include <Windows.h>
-#include "GameDlg.h"
+#include "MenuDlg.h"
 
 int WINAPI _tWinMain(HINSTANCE hInst, HINSTANCE hPrev, LPTSTR lpszCmdLine, int nCmdShow)
 {
@@ -7,6 +7,6 @@ int WINAPI _tWinMain(HINSTANCE hInst, HINSTANCE hPrev, LPTSTR lpszCmdLine, int n
 	INITCOMMONCONTROLSEX icc = { sizeof(INITCOMMONCONTROLSEX) };
 	icc.dwICC = ICC_WIN95_CLASSES;
 	InitCommonControlsEx(&icc);
-	GameDlg dlg;
-	return DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG1), NULL, GameDlg::DlgProc);
+	MenuDlg dlg;
+	return DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG2), NULL, MenuDlg::DlgProc);
 }

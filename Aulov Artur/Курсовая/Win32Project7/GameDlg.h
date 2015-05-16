@@ -14,8 +14,11 @@ public:
 	void Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify);
 	void Cls_OnCreate(HWND hwnd);
 	bool trig;
+	int phase;
 	Game game;
 	HBITMAP Back;
 	HBITMAP icons[7];
 	HANDLE* field[11][10];
+	bool cgame;
+	int coins, score, level, orders;
 };
