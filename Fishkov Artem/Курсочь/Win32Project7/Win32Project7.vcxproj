@@ -82,14 +82,12 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameDlg.h" />
     <ClInclude Include="Header.h" />
-    <ClInclude Include="Info.h" />
     <ClInclude Include="MenuDlg.h" />
     <ClInclude Include="Monstrs.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameDlgcpp.cpp" />
-    <ClCompile Include="Info.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MenuDlg.cpp" />
   </ItemGroup>
@@ -120,6 +118,9 @@
     <Image Include="SPIDER_DMG.bmp" />
     <Image Include="Test.bmp" />
     <Image Include="Test2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="punch1.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

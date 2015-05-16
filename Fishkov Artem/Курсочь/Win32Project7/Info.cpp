@@ -21,10 +21,10 @@ void InfoDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 
 BOOL InfoDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 {
-	pages[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP21));
+	/*pages[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP21));
 	Static = GetDlgItem(hwnd,IDC_STATIC);
 	SendMessage((HWND)Static, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)pages[0]);
-
+*/
 	return 0;
 }
 
