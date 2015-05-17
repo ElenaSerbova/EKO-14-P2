@@ -31,7 +31,14 @@ void MenuDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 {
 	if (id == IDC_BUTTON1)
 	{
-		GameDlg dlg;
+		GameDlg dlg(false);
+		ShowWindow(hwnd, SW_HIDE);
+		DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG1), NULL, GameDlg::DlgProc);
+		ShowWindow(hwnd, SW_SHOW);
+	}
+	if (id == IDC_BUTTON2)
+	{
+		GameDlg dlg(true);
 		ShowWindow(hwnd, SW_HIDE);
 		DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG1), NULL, GameDlg::DlgProc);
 		ShowWindow(hwnd, SW_SHOW);

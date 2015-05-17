@@ -20,6 +20,60 @@ public:
 	int gettmpj(){ return tmp_j; }
 	void setselect(int i, int j, bool select){ selectfield[i][j] = select; }
 	bool getselect(int i, int j) { return selectfield[i][j]; }
+
+	void stone_on()
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			if (*field[10][j] == 6) *field[10][j] = 0;
+		}
+	}
+
+	int count_stone()
+	{
+		int count = 0;
+		for (int j = 0; j < 10; j++)
+		{
+			if (*field[10][j] == 6) count++;
+		}
+		return count;
+	}
+
+	void generatefield()
+	{
+		for (int i = 0; i < 11; i++)
+		{
+			for (int j = 0; j < 10; j++)
+			{
+				if (i == 0)
+				{
+					*field[i][j] = 6;
+				}
+				else
+				{
+					*field[i][j] = (rand() % 5) + 1;
+
+					if (j >= 2)
+					{
+						if (*field[i][j - 1] == *field[i][j] && *field[i][j - 2] == *field[i][j])
+						{
+							if (*field[i][j] == 5) *field[i][j] = 1;
+							else *field[i][j] = *field[i][j] + 1;
+						}
+					}
+					if (i >= 3)
+					{
+						if (*field[i - 1][j] == *field[i][j] && *field[i - 2][j] == *field[i][j])
+						{
+							if (*field[i][j] == 5) *field[i][j] = 1;
+							else *field[i][j] = *field[i][j] + 1;
+						}
+					}
+				}
+			}
+		}
+	}
+
 	void FallColone(int j)
 	{
 		for (int i = 10; i > 0; i--)

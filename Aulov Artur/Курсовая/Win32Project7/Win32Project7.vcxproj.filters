@@ -66,10 +66,22 @@
     <Image Include="5.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="6.bmp">
+    <Image Include="BackgroundMenu.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="BackgroundMenu.bmp">
+    <Image Include="stone.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_1_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_1_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_1_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_1_4.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
