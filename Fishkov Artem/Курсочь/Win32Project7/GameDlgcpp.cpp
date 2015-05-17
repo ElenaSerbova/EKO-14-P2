@@ -1,11 +1,9 @@
 #include "GameDlg.h"
+#include "Shop.h"
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
-DWORD WINAPI PlayEffect(PVOID lpParam)
-{
-	PlaySound(MAKEINTRESOURCE(IDR_WAVE1), GetModuleHandle(NULL), SND_RESOURCE);
-	return 0;
-}
+
+	
 
 GameDlg* GameDlg::ptr = NULL;
 
@@ -48,47 +46,7 @@ void GameDlg::UpdateAll()
 	ptr->MonstrInfo.SetNAME(ptr->game.monstr.name);
 	ptr->MonstrInfo.SetATTAK(ptr->game.monstr.attack);
 	ptr->MonstrInfo.SetDMG(ptr->game.monstr.TakenDMG);
-	if (game.monstr.Heal)
-	ptr->MonstrInfo.SetHEAL(ptr->game.monstr.Heal);
-	if (game.monstr.Heal)
-	{
-		ShowWindow(ptr->MonstrInfo.HEAL, SW_SHOW);
-		SetTimer(ptr->hwnd, NULL, 2000, NULL);
-		SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.monstr.pic[0]);
-	}
-	else
-		ShowWindow(ptr->MonstrInfo.HEAL, SW_HIDE);
-
-	if (game.hero.Heal)
-	{
-		SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->ptr->game.hero.pic[0]);
-		ShowWindow(ptr->HeroInfo.HEAL, SW_SHOW);
-		SetTimer(ptr->hwnd, NULL, 2000, NULL);
-	}
-	else
-		ShowWindow(ptr->HeroInfo.HEAL, SW_HIDE);
-
-
-	if (game.monstr.attacket != 0)
-	{
-		ShowWindow(ptr->MonstrInfo.DMG, SW_SHOW);
-		SetTimer(ptr->hwnd, NULL, 2000, NULL);
-		SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.monstr.pic[2]);
-		SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->ptr->game.hero.pic[1]);
-		CreateThread(NULL, 0,PlayEffect, NULL, 0, NULL);
-	}
-
-	if (game.hero.attacket != 0)
-	{
-
-		ShowWindow(ptr->HeroInfo.DMG, SW_SHOW);
-		SetTimer(ptr->hwnd, NULL, 2000, NULL);
-		SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)game.monstr.pic[1]);
-		SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->ptr->game.hero.pic[2]);
-		
-	}
-	else
-		ShowWindow(ptr->HeroInfo.DMG, SW_HIDE);
+	
 	
 }
 
@@ -145,7 +103,7 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 	SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.monstr.pic[0]);
 
 	UpdateAll();
-	
+
 	return 0;
 }
 
@@ -159,23 +117,58 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 		if (hwndCtl == *field[i][j])
 		{
 			game.PointTo(j, i);
+		
+			}
 		}
-	}
 	UpdateAll();
-	if (ptr->game.gameover == 1)
+	if (game.monstr.Heal)
+		ptr->MonstrInfo.SetHEAL(ptr->game.monstr.Heal);
+	if (game.monstr.Heal)
 	{
-		MessageBox(hwnd, L"YOU LOSE!", L"YOU LOSE!", MB_OK);
-		ptr->game.Restart();
-		UpdateAll();
-		
+		SetTimer(ptr->hwnd, NULL, 1000, NULL);
+		ShowWindow(ptr->MonstrInfo.HEAL, SW_SHOW);
+		PostMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.monstr.pic[0]);
 	}
-	if (ptr->game.win == 1)
+	else
+		ShowWindow(ptr->MonstrInfo.HEAL, SW_HIDE);
+
+	if (game.hero.Heal)
 	{
-		MessageBox(hwnd, L"YOU WON!", L"YOU WON!", MB_OK);
-		ptr->game.Restart();
-		UpdateAll();
-		
+		SetTimer(ptr->hwnd, NULL, 1000, NULL);
+		PostMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->ptr->game.hero.pic[0]);
+		ShowWindow(ptr->HeroInfo.HEAL, SW_SHOW);
+
 	}
+	else
+		ShowWindow(ptr->HeroInfo.HEAL, SW_HIDE);
+
+
+	if (game.monstr.attacket != 0)
+	{
+		SetTimer(ptr->hwnd, NULL, 1000, NULL);
+		PostMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.monstr.pic[2]);
+		PlaySound(MAKEINTRESOURCE(IDR_WAVE2), GetModuleHandle(NULL), SND_RESOURCE);
+		ShowWindow(ptr->MonstrInfo.DMG, SW_SHOW);
+
+
+
+
+	}
+
+	if (game.hero.attacket != 0)
+	{
+		SetTimer(ptr->hwnd, NULL, 1000, NULL);
+		PostMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->ptr->game.hero.pic[2]);
+		PlaySound(MAKEINTRESOURCE(IDR_WAVE1), GetModuleHandle(NULL), SND_RESOURCE);
+		ShowWindow(ptr->HeroInfo.DMG, SW_SHOW);
+
+
+
+
+	}
+	else
+		ShowWindow(ptr->HeroInfo.DMG, SW_HIDE);
+	
 
 }
 
@@ -222,6 +215,35 @@ BOOL CALLBACK GameDlg::DlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lP
 			return 0;
 			
 	
+
+	}
+	if (ptr->game.gameover == 1)
+	{
+		ptr->game.gameover = 0;
+		PlaySound(MAKEINTRESOURCE(IDR_WAVE3), GetModuleHandle(NULL), SND_RESOURCE);
+		if (MessageBox(hwnd, L"YOU LOSE!\n CONTINUE?", L"YOU LOSE!", MB_YESNO) == IDNO)
+		{
+			EndDialog(hwnd, 0);
+			return 0;
+
+		}
+		ptr->game.Restart();
+		ptr->UpdateAll();
+
+		if (ptr->game.fullgameover)
+		{
+			MessageBox(hwnd, L"GAME OVER!!!", L"GAME OVER!!!", MB_OK);
+			EndDialog(hwnd, 0);
+		}
+	}
+	if (ptr->game.win == 1)
+	{
+		ptr->game.win = 0;
+		PlaySound(MAKEINTRESOURCE(IDR_WAVE4), GetModuleHandle(NULL), SND_RESOURCE);
+		MessageBox(hwnd, L"YOU WON!", L"YOU WON!", MB_OK);
+
+		ptr->game.Restart();
+		ptr->UpdateAll();
 
 	}
 	return FALSE;

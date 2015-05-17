@@ -33,6 +33,9 @@
     <ClInclude Include="Monstrs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -42,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MenuDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -123,6 +129,18 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="punch1.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="knife_stab.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\..\Downloads\gameover.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\..\Downloads\lose.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="..\..\..\..\..\..\Downloads\win.wav">
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>

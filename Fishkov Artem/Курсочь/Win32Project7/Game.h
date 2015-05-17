@@ -1,14 +1,27 @@
 #pragma once
 #include <iostream>
 #include "Monstrs.h"
+class Item
+{
+	TCHAR name;
+	int cost;
+	void USE()
+	{
 
+	}
+};
 class Game
 {
+	
 	int lvl;
 	Monstr Lvls[10];
 	bool selectfield[10][20];
 	int* field[10][20];
+	int items[2][10];
 public:
+		
+	bool fullgameover;
+	int continues;
 	bool win;
 	bool gameover;
 	Hero hero;
@@ -88,6 +101,7 @@ public:
 	}
 	Game() :hero(10, 0, 0,2,L"Nigga")
 	{
+		continues = 3;
 		hero.pic[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP12));
 		hero.pic[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP16));
 		hero.pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP17));
@@ -155,6 +169,11 @@ public:
 			if (!hero.life)
 			{
 				gameover = 1;
+				continues--;
+				if (continues < 0)
+				{
+					fullgameover = 1;
+				}
 			}
 			if (hero.life && !monstr.life)
 			{

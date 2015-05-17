@@ -85,11 +85,13 @@
     <ClInclude Include="MenuDlg.h" />
     <ClInclude Include="Monstrs.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Shop.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameDlgcpp.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MenuDlg.cpp" />
+    <ClCompile Include="ShopDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Win32Project7.rc" />
@@ -120,6 +122,10 @@
     <Image Include="Test2.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="..\..\..\..\..\..\Downloads\gameover.wav" />
+    <Media Include="..\..\..\..\..\..\Downloads\lose.wav" />
+    <Media Include="..\..\..\..\..\..\Downloads\win.wav" />
+    <Media Include="knife_stab.wav" />
     <Media Include="punch1.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
