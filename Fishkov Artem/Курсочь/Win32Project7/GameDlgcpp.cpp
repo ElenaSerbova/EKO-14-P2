@@ -72,7 +72,7 @@ void GameDlg::UpdateAll()
 	if (game.monstr.attacket != 0)
 	{
 		ShowWindow(ptr->MonstrInfo.DMG, SW_SHOW);
-		SetTimer(ptr->hwnd, NULL, 20, NULL);
+		SetTimer(ptr->hwnd, NULL, 2000, NULL);
 		SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.monstr.pic[2]);
 		SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->ptr->game.hero.pic[1]);
 		CreateThread(NULL, 0,PlayEffect, NULL, 0, NULL);
@@ -85,6 +85,7 @@ void GameDlg::UpdateAll()
 		SetTimer(ptr->hwnd, NULL, 2000, NULL);
 		SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)game.monstr.pic[1]);
 		SendMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->ptr->game.hero.pic[2]);
+		
 	}
 	else
 		ShowWindow(ptr->HeroInfo.DMG, SW_HIDE);
@@ -93,6 +94,7 @@ void GameDlg::UpdateAll()
 
 BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 {
+	
 	monsterstep = 0;
 	ptr->hwnd = hwnd;
 	ptr->HeroInfo.HP = GetDlgItem(hwnd, H_HP);
