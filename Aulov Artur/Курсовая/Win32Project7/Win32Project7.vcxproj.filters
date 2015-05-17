@@ -84,5 +84,20 @@
     <Image Include="build_1_4.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="build_2_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_2_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_2_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_2_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_2_5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

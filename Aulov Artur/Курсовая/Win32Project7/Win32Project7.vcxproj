@@ -104,6 +104,11 @@
     <Image Include="build_1_2.bmp" />
     <Image Include="build_1_3.bmp" />
     <Image Include="build_1_4.bmp" />
+    <Image Include="build_2_1.bmp" />
+    <Image Include="build_2_2.bmp" />
+    <Image Include="build_2_3.bmp" />
+    <Image Include="build_2_4.bmp" />
+    <Image Include="build_2_5.bmp" />
     <Image Include="stone.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

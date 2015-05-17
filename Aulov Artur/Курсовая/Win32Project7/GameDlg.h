@@ -18,9 +18,10 @@ public:
 	Game game;
 	HBITMAP Back;
 	HBITMAP icons[7];
+	HBITMAP catapult_b[4];
 	HANDLE* catapult[10];
 	HBITMAP build[3][5];
-	HWND build_on, HP;
+	HWND build_on, HP, COINS, SCORE;
 	HANDLE* field[11][10];
 	bool cgame;
 	RECT cd;
