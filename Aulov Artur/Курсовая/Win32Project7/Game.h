@@ -21,6 +21,28 @@ public:
 	void setselect(int i, int j, bool select){ selectfield[i][j] = select; }
 	bool getselect(int i, int j) { return selectfield[i][j]; }
 
+	void destroyj(int i) 
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			if (*field[i][j] != 6 && *field[i][j] != 0)
+			*field[i][j] = 0;
+		}
+	}
+
+	void destroyi(int j)
+	{
+		for (int i = 0; i < 11; i++)
+		{
+			if (*field[i][j] != 6 && *field[i][j] != 0)
+			*field[i][j] = 0;
+		}
+	}
+
+	int Get(int i, int j){ return *field[i][j]; }
+
+	void Set(int i, int j, int type){ *field[i][j] = type; }
+
 	void stone_on()
 	{
 		for (int j = 0; j < 10; j++)
@@ -34,7 +56,7 @@ public:
 		int count = 0;
 		for (int j = 0; j < 10; j++)
 		{
-			if (*field[10][j] == 6) count++;
+			if (*field[10][j] == 0) count++;
 		}
 		return count;
 	}
@@ -131,11 +153,6 @@ public:
 		}
 	}
 
-	int Get(int i, int j)
-	{
-		return *field[i][j];
-	}
-	
 	void ClearSelect()
 	{
 		for (int i = 0; i < 11; i++)

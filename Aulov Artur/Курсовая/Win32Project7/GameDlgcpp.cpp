@@ -8,7 +8,7 @@ GameDlg::GameDlg(bool cgame)
 	ptr = this;
 	if (cgame == false)
 	{
-		hp = 1;
+		hp = 10;
 		level = 0;
 		coins = 0;
 		score = 0;
@@ -41,7 +41,10 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 	phase = 0;
 	ptr->trig = 0;
 
-
+	ptr->catapult_b[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP19));
+	ptr->catapult_b[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP20));
+	ptr->catapult_b[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP21));
+	ptr->catapult_b[3] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP22));
 
 	ptr->build[0][0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP10));
 	ptr->build[0][1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP11));
@@ -54,6 +57,12 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 	ptr->build[1][2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP16));
 	ptr->build[1][3] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP17));
 	ptr->build[1][4] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP18));
+	
+	ptr->build[2][0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP23));
+	ptr->build[2][1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP24));
+	ptr->build[2][2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP25));
+	ptr->build[2][3] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP26));
+	ptr->build[2][4] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP27));
 
 	ptr->icons[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP2));
 	ptr->icons[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP3));
@@ -71,26 +80,19 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 			field[i][j] = new HANDLE;
 			*field[i][j] = CreateWindowEx(NULL, L"BUTTON", nom, WS_CHILD | WS_VISIBLE | BS_FLAT, 20 + j * 50, 20 + i * 50, 50, 50, hwnd, NULL, GetModuleHandle(0), NULL);
 			SetWindowLong((HWND)*field[i][j], GWL_STYLE, ::GetWindowLong((HWND)*field[i][j], GWL_STYLE) | BS_BITMAP | BS_FLAT);
-		}
-	}
-
-	/*for (int j = 0; j < 10; j++)
-	{
-		TCHAR nom[10];
-		field[i][j] = new HANDLE;
-		*field[i][j] = CreateWindowEx(NULL, L"BUTTON", nom, WS_CHILD | WS_VISIBLE | BS_FLAT, 20 + j * 50, 20 + i * 50, 50, 50, hwnd, NULL, GetModuleHandle(0), NULL);
-		SetWindowLong((HWND)*field[i][j], GWL_STYLE, ::GetWindowLong((HWND)*field[i][j], GWL_STYLE) | BS_BITMAP | BS_FLAT);
-	}*/
-
-	SendMessage(build_on, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->build[level][anim]);
-
-	for (int i = 0; i < 11; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
 			SendMessage((HWND)*field[i][j], BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->icons[game.Get(i, j)]);
 		}
 	}
+
+	for (int j = 0; j < 10; j++)
+	{
+		TCHAR nom[10];
+		catapult[j] = new HANDLE;
+		*catapult[j] = CreateWindow(L"STATIC", nom, WS_CHILD | WS_VISIBLE | SS_BITMAP, 20 + j * 50, 570, 50, 50, hwnd, NULL, GetModuleHandle(NULL), NULL);
+		SendMessage((HWND)*catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[0]);
+	}
+
+	SendMessage(build_on, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->build[level][anim]);
 
 	return 0;
 }
@@ -100,22 +102,66 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 	if (id == IDC_BUTTON1)
 	{
 		hp = hp - game.count_stone();
+		if (hp < 0) hp = 0;
+		TCHAR tmpbuf[10];
+		_itot_s(hp, tmpbuf, 10);
+		SetWindowText(HP, tmpbuf);
+
 		if (hp > 0)
 		{
 			game.stone_on();
-			TCHAR tmpbuf[10];
-			_itot_s(hp, tmpbuf, 10);
-			SetWindowText(HP, tmpbuf);
+
+			for (int j = 0; j < 10; j++)
+			{
+				if (game.Get(10, j) == 0) SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[3]);
+				else SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[2]);
+			}
+			Sleep(200);
 			game.generatefield();
 			if (level == 0)
 			{
 				if (hp <= 6) anim = 1;
-				if (hp <= 4) anim = 2;
-				if (hp <= 2) anim = 3;
+				else if (hp <= 4) anim = 2;
+				else if (hp <= 2) anim = 3;
+			}
+			else if (level == 1)
+			{
+				if (hp <= 12) anim = 1;
+				else if (hp <= 9) anim = 2;
+				else if (hp <= 6) anim = 3;
+				else if (hp <= 3) anim = 4;
+			}
+
+			else if (level == 2)
+			{
+				if (hp <= 16) anim = 1;
+				else if (hp <= 12) anim = 2;
+				else if (hp <= 7) anim = 3;
+				else if (hp <= 3) anim = 4;
+			}
+
+			for (int j = 0; j < 10; j++)
+			{
+				SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[0]);
 			}
 		}
 		else
 		{
+			game.generatefield();
+
+			for (int j = 0; j < 10; j++)
+			{
+				if (game.Get(10, j) == 0) SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[3]);
+				else SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[2]);
+			}
+
+			Sleep(200);
+
+			for (int j = 0; j < 10; j++)
+			{
+				SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[0]);
+			}
+
 			anim = 0;
 			level++;
 			if (level == 1) hp = 15;
@@ -125,6 +171,10 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 				level = 0;
 				hp = 10;
 			}
+
+			TCHAR tmpbuf[10];
+			_itot_s(hp, tmpbuf, 10);
+			SetWindowText(HP, tmpbuf);
 		}
 	}
 
@@ -202,6 +252,15 @@ BOOL CALLBACK GameDlg::DlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lP
 
 						for (int j = 0; j < 10; j++)
 							ptr->game.FallColone(j);
+
+						for (int j = 0; j < 10; j++)
+						{
+							if (ptr->game.Get(10, j) == 6)
+							{
+								ptr->game.Set(10, j, 0);
+								SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[1]);
+							}
+						}
 
 						ptr->game.unselect();
 					}

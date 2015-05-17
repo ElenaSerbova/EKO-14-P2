@@ -99,5 +99,32 @@
     <Image Include="build_2_5.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="katapulta1-04.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="katapulta2-04.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="katapulta3-04.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="katapulta4-04.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_3_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_3_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_3_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_3_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_3_5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

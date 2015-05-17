@@ -8,6 +8,7 @@ public:
 public:
 	~GameDlg(void);
 	static BOOL CALLBACK DlgProc(HWND hWnd, UINT mes, WPARAM wp, LPARAM lp);
+	void CALLBACK TimerProc();
 	static GameDlg* ptr;
 	void Cls_OnClose(HWND hwnd);
 	BOOL Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam);
