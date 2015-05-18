@@ -36,7 +36,7 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 	_itot_s(hp, tmpbuf, 10);
 	SetWindowText(HP, tmpbuf);
 
-	build_on = CreateWindow(L"STATIC", NULL, WS_CHILD | WS_VISIBLE | SS_BITMAP, 540, 20, 300, 220, hwnd, NULL, GetModuleHandle(NULL), NULL);
+	build_on = CreateWindow(L"STATIC", NULL, WS_CHILD | WS_VISIBLE | SS_BITMAP, 540, 120, 300, 220, hwnd, NULL, GetModuleHandle(NULL), NULL);
 	GetClientRect(hwnd, &cd);
 	phase = 0;
 	ptr->trig = 0;
@@ -94,68 +94,81 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 
 	SendMessage(build_on, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->build[level][anim]);
 
+	//TOOLINFO ti;
+	//HINSTANCE hinst = GetModuleHandle(NULL);
+	//HWND hTooltip = CreateWindow(TOOLTIPS_CLASS, NULL, TTS_NOPREFIX | TTS_ALWAYSTIP, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,hwnd, (HMENU)NULL, hinst, NULL);
+	//// Прикрепить подсказку к кнопке
+	//memset(&ti, 0, sizeof TOOLINFO);
+	//ti.cbSize = sizeof TOOLINFO;
+	//ti.uFlags = TTF_IDISHWND | TTF_SUBCLASS;
+	//ti.uId = (UINT)GetDlgItem(hwnd, IDC_BUTTON1);;
+	//ti.lpszText = L"Это подсказка Гагага!";
+	//ti.hinst = hinst;
+	//SendMessage(hTooltip, TTM_ADDTOOL, 0, (LPARAM)(LPTOOLINFO)&ti);
+
 	return 0;
 }
 
 void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 {
+
 	if (id == IDC_BUTTON1)
 	{
 		hp = hp - game.count_stone();
-		if (hp < 0) hp = 0;
-		TCHAR tmpbuf[10];
-		_itot_s(hp, tmpbuf, 10);
-		SetWindowText(HP, tmpbuf);
-
+		
 		if (hp > 0)
 		{
 			game.stone_on();
 
 			for (int j = 0; j < 10; j++)
 			{
-				if (game.Get(10, j) == 0) SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[3]);
-				else SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[2]);
+				if (game.Get(10, j) == 0)
+				{
+					SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[3]);
+					Sleep(100);
+					SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[0]);
+				}
+				else
+				{
+					SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[2]);
+					Sleep(100);
+					SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[0]);
+				}
 			}
-			Sleep(200);
+
 			game.generatefield();
+
 			if (level == 0)
 			{
-				if (hp <= 6) anim = 1;
-				else if (hp <= 4) anim = 2;
-				else if (hp <= 2) anim = 3;
+				if (hp == 6) anim = 1;
+				if (hp == 4) anim = 2;
+				if (hp == 2) anim = 3;
 			}
-			else if (level == 1)
+			if (level == 1)
 			{
-				if (hp <= 12) anim = 1;
-				else if (hp <= 9) anim = 2;
-				else if (hp <= 6) anim = 3;
-				else if (hp <= 3) anim = 4;
+				if (hp == 12) anim = 1;
+				if (hp == 9) anim = 2;
+				if (hp == 6) anim = 3;
+				if (hp == 3) anim = 4;
 			}
 
-			else if (level == 2)
+			if (level == 2)
 			{
-				if (hp <= 16) anim = 1;
-				else if (hp <= 12) anim = 2;
-				else if (hp <= 7) anim = 3;
-				else if (hp <= 3) anim = 4;
+				if (hp == 16) anim = 1;
+				if (hp == 12) anim = 2;
+				if (hp == 7) anim = 3;
+				if (hp == 3) anim = 4;
 			}
 
-			for (int j = 0; j < 10; j++)
-			{
-				SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[0]);
-			}
+			if (hp < 0) hp = 0;
+			TCHAR tmpbuf[10];
+			_itot_s(hp, tmpbuf, 10);
+			SetWindowText(HP, tmpbuf);
+			
 		}
 		else
 		{
 			game.generatefield();
-
-			for (int j = 0; j < 10; j++)
-			{
-				if (game.Get(10, j) == 0) SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[3]);
-				else SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[2]);
-			}
-
-			Sleep(200);
 
 			for (int j = 0; j < 10; j++)
 			{
@@ -164,6 +177,7 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 
 			anim = 0;
 			level++;
+
 			if (level == 1) hp = 15;
 			if (level == 2) hp = 20;
 			if (level > 2)

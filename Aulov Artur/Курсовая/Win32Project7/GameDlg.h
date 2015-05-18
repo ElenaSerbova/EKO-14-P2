@@ -22,9 +22,10 @@ public:
 	HBITMAP catapult_b[4];
 	HANDLE* catapult[10];
 	HBITMAP build[3][5];
-	HWND build_on, HP, COINS, SCORE;
+	HWND build_on, HP, COINS, SCORE, LEVEL;
 	HANDLE* field[11][10];
 	bool cgame;
 	RECT cd;
 	int coins, score, level, orders, anim, hp;
+	bool block, blocki, blockj;
 };
