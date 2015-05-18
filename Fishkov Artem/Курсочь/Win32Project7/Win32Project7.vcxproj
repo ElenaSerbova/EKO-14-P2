@@ -85,13 +85,13 @@
     <ClInclude Include="MenuDlg.h" />
     <ClInclude Include="Monstrs.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Shop.h" />
+    <ClInclude Include="Comix.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameDlgcpp.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MenuDlg.cpp" />
-    <ClCompile Include="ShopDlg.cpp" />
+    <ClCompile Include="ComixDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Win32Project7.rc" />
@@ -105,6 +105,14 @@
     <Image Include="5.bmp" />
     <Image Include="6.bmp" />
     <Image Include="bitmap11.bmp" />
+    <Image Include="bitmap32.bmp" />
+    <Image Include="BOSS.bmp" />
+    <Image Include="BOSS_DMG.bmp" />
+    <Image Include="EXIT.bmp" />
+    <Image Include="FINAL.bmp" />
+    <Image Include="FINAL2.bmp" />
+    <Image Include="GOLEM.bmp" />
+    <Image Include="GOLEM_DMG.bmp" />
     <Image Include="Help.bmp" />
     <Image Include="HERO.bmp" />
     <Image Include="HERO.png" />
@@ -112,14 +120,24 @@
     <Image Include="HERO_DMG.bmp" />
     <Image Include="img" />
     <Image Include="img.bmp" />
+    <Image Include="MenuBack.bmp" />
+    <Image Include="NEW_GAME.bmp" />
     <Image Include="RAT.bmp" />
     <Image Include="RAT_ATK.bmp" />
     <Image Include="RAT_DMG.bmp" />
+    <Image Include="SKULL.bmp" />
+    <Image Include="SKULL_DMG.bmp" />
     <Image Include="SPIDER.bmp" />
     <Image Include="SPIDER_ATK.bmp" />
     <Image Include="SPIDER_DMG.bmp" />
     <Image Include="Test.bmp" />
     <Image Include="Test2.bmp" />
+    <Image Include="WideBG.bmp" />
+    <Image Include="Начало 1.bmp" />
+    <Image Include="Начало 1.png" />
+    <Image Include="Начало 2.bmp" />
+    <Image Include="Начало 2.png" />
+    <Image Include="финал.png" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="..\..\..\..\..\..\Downloads\gameover.wav" />
