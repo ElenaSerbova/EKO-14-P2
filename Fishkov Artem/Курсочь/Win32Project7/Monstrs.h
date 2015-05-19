@@ -88,30 +88,7 @@ public:
 				curentTime++;
 			}
 			break;
-		case 1:
-			if (enemy->hp < 10)
-			{
 
-			}
-			if (timeng == curentTime)
-			{
-				enemy->TakeDMG(attack);
-				curentTime = 0;
-				timeng = rand() % 8;
-
-			}
-			else
-			{
-				curentTime++;
-			}
-			attack++;
-			if (enemy->hp < 8)
-			{
-				attack++;
-				defence = 0;
-			}
-			break;
-			
 		}
 	}
 	

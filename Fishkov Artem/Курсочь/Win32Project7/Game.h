@@ -1,26 +1,59 @@
 #pragma once
 #include <iostream>
 #include "Monstrs.h"
+class Item
+{
+	TCHAR name;
+	int cost;
+	void USE()
+	{
 
+	}
+};
 class Game
 {
-
 	
+	int lvl;
 	Monstr Lvls[10];
 	bool selectfield[10][20];
 	int* field[10][20];
 	int items[2][10];
 public:
-	int lvl;
-	int rage;
+		
 	bool fullgameover;
 	int continues;
 	bool win;
 	bool gameover;
 	Hero hero;
 	Monstr monstr;
-	void RestartField()
+	void SetMonsters()
 	{
+		Lvls[1] = Monstr(10,2,1,0,L"Rat");
+		Lvls[0] = Monstr(20, 5, 3, 2, L"Spider");
+		Lvls[2] = Monstr(50, 20, 1, 8, L"Golem");
+		Lvls[3] = Monstr(10, 5, 6, 1, L"Skull");
+
+		Lvls[0].pic[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP13));
+		Lvls[0].pic[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP14));
+		Lvls[0].pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP15));
+
+		Lvls[1].pic[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP18));
+		Lvls[1].pic[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP19));
+		Lvls[1].pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP20));
+
+
+	}
+	void Restart()
+	{
+		hero = Hero(10, 0, 0, 2, L"Nigga");
+		hero.pic[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP12));
+		hero.pic[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP16));
+		hero.pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP17));
+		monstr = Lvls[lvl];
+		win = 0;
+		gameover = 0;
+		hero.SetEnemy(&monstr);
+		monstr.SetEnemy(&hero);
 		for (int i = 0; i < 10; i++)
 		{
 			for (int j = 0; j < 20; j++)
@@ -30,49 +63,6 @@ public:
 
 			}
 		}
-	}
-	void SetMonsters()
-	{
-		Lvls[0] = Monstr(10,2,1,0,L"Rat");
-		Lvls[1] = Monstr(20, 5, 3, 2, L"Spider");
-		Lvls[2] = Monstr(50, 20, 1, 8, L"Golem");
-		Lvls[3] = Monstr(10, 5, 6, 1, L"Skull");
-		Lvls[4] = Monstr(30, 1, 4, 3, L"Evil-Evil guy", 1);
-
-		Lvls[1].pic[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP13));
-		Lvls[1].pic[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP14));
-		Lvls[1].pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP15));
-
-		
-		Lvls[0].pic[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP18));
-		Lvls[0].pic[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP19));
-		Lvls[0].pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP20));
-
-		Lvls[2].pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP23));
-		Lvls[2].pic[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP22));
-
-		Lvls[3].pic[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP24));
-		Lvls[3].pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP25));
-
-		Lvls[4].pic[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP26));
-		Lvls[4].pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP27));
-
-
-
-	}
-	void Restart()
-	{
-		rage = 0;
-		hero = Hero(10, 0, 0, 2, L"Arthur");
-		hero.pic[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP12));
-		hero.pic[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP16));
-		hero.pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP17));
-		monstr = Lvls[lvl];
-		win = 0;
-		gameover = 0;
-		hero.SetEnemy(&monstr);
-		monstr.SetEnemy(&hero);
-		RestartField();
 	}
 	void SlideStrings()
 	{
@@ -109,21 +99,28 @@ public:
 			}
 		}
 	}
-	Game() :hero(10, 0, 0, 2, L"Arthur")
+	Game() :hero(10, 0, 0,2,L"Nigga")
 	{
-		rage = 0;
 		continues = 3;
 		hero.pic[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP12));
 		hero.pic[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP16));
 		hero.pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP17));
 		SetMonsters();
-		lvl = 4;
+		lvl = 0;
 		monstr = Lvls[lvl];
 		win = 0;
 		gameover = 0;
 		hero.SetEnemy(&monstr);
 		monstr.SetEnemy(&hero);
-		RestartField();
+		for (int i = 0; i < 10; i++)
+		{
+			for (int j = 0; j < 20; j++)
+			{
+				field[i][j] = new int(0);
+				*field[i][j] = (rand() % 5) + 1;
+				
+			}
+		}
 	}
 	int Get(int x, int y)
 	{
@@ -162,10 +159,6 @@ public:
 						*field[i][j] = 0;
 					}
 				}
-			}
-			if (col > 3)
-			{
-				rage += col - 3;
 			}
 			hero.DoStep(type, col);
 			monstr.DoStep(0, 0);

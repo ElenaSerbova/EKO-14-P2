@@ -130,8 +130,6 @@ public:
 	void Cls_OnCreate(HWND hwnd);
 	void UpdateAll();
 	bool trig;
-	bool widescrin;
-	HWND R, EB, RAGE;
 	HWND hwnd;
 	InfoH HeroInfo;
 	InfoM MonstrInfo;
