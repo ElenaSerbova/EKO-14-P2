@@ -9,7 +9,6 @@ class Game
 	bool secondselect = false;
 	bool buttonselect = false;
 	bool reset = false;
-	int score = 0;
 	int firsti, firstj, secondi, secondj;
 public:
 	bool getreset(){ return reset; }
@@ -27,17 +26,7 @@ public:
 		for (int j = 0; j < 10; j++)
 		{
 			if (*field[i][j] != 6 && *field[i][j] != 0)
-			{
-				selectfield[i][j] = 1;
-			}
-		}
-	}
-
-	void destroy(int i, int j)
-	{
-		if (*field[i][j] != 6 && *field[i][j] != 0)
-		{
-			selectfield[i][j] = 1;
+			*field[i][j] = 0;
 		}
 	}
 
@@ -46,9 +35,7 @@ public:
 		for (int i = 0; i < 11; i++)
 		{
 			if (*field[i][j] != 6 && *field[i][j] != 0)
-			{
-				selectfield[i][j] = 1;
-			}
+			*field[i][j] = 0;
 		}
 	}
 
@@ -62,11 +49,6 @@ public:
 		{
 			if (*field[10][j] == 6) *field[10][j] = 0;
 		}
-	}
-
-	int score_()
-	{
-		return score;
 	}
 
 	int count_stone()
@@ -263,7 +245,6 @@ public:
 					if (selectfield[i][j] == 1)
 					{
 						*field[i][j] = 0;
-						score += 20;
 					}
 				}
 			}

@@ -48,6 +48,24 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="0.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
     <Image Include="BackgroundMenu.bmp">
       <Filter>Resource Files</Filter>
     </Image>
@@ -106,45 +124,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="build_3_5.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="0.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="1.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="4.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="5.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="bitmap28.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="bitmap29.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="pers-10_2.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="pers-10.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="pers-10_3.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="pers-10_4.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="pers-10_5.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
