@@ -33,7 +33,7 @@
     <ClInclude Include="Monstrs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shop.h">
+    <ClInclude Include="Comix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,7 +47,7 @@
     <ClCompile Include="MenuDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShopDlg.cpp">
+    <ClCompile Include="ComixDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -124,6 +124,60 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Help.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="GOLEM.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="GOLEM_DMG.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="SKULL.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="SKULL_DMG.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="BOSS.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="BOSS_DMG.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="MenuBack.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="EXIT.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="NEW_GAME.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="WideBG.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bitmap32.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Начало 1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Начало 2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="финал.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="FINAL.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Начало 1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Начало 2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="FINAL2.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

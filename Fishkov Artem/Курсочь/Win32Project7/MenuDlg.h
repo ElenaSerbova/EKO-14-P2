@@ -13,4 +13,7 @@ public:
 	BOOL Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam);
 	void Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify);
 	void Cls_OnCreate(HWND hwnd);
+	HWND StartB, HelpB, ExitB;
+	HBITMAP Back, Start, Help, Exit;
+
 };
