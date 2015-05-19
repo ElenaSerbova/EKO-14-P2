@@ -221,7 +221,7 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 			dlg.page_count = 1;
 			DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG4), NULL, ComixDlg::DlgProc);
 			EndDialog(hwnd, 0);
-			
+			âûô
 		}
 		if (ptr->game.gameover == 1)
 		{

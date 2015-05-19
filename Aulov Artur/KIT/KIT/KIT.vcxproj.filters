@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Library.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="KIT.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Menu.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="catapult_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="catapult_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="catapult_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="catapult_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_1_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_1_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_1_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_1_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_2_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_2_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_2_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_2_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_2_5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_3_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_3_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_3_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_3_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="build_3_5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="stone.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="victory_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="victory_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="victory_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="victory_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="guy_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="guy_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="guy_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="guy_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="guy_5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bitmap30.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
