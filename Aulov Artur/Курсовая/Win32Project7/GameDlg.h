@@ -14,6 +14,7 @@ public:
 	BOOL Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam);
 	void Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify);
 	void Cls_OnCreate(HWND hwnd);
+	void clearbonus() { block = false, blocki = false, blockj = false; }
 	bool trig;
 	int phase;
 	Game game;
@@ -27,5 +28,5 @@ public:
 	bool cgame;
 	RECT cd;
 	int coins, score, level, orders, anim, hp;
-	bool block, blocki, blockj;
+	bool block = false, blocki = false, blockj = false;
 };
