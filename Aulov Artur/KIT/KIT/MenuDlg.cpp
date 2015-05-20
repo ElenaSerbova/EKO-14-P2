@@ -31,7 +31,7 @@ void MenuDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 {
 	if (id == START_GAME)
 	{
-		GameDlg dlg();
+		GameDlg dlg;
 		ShowWindow(hwnd, SW_HIDE);
 		DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(GAME), NULL, GameDlg::DlgProc);
 		ShowWindow(hwnd, SW_SHOW);

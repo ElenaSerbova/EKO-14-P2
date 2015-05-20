@@ -24,6 +24,9 @@
     <ClCompile Include="GameDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VictoryDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Library.h">
@@ -39,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VictoryDlg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -136,6 +142,15 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="bitmap30.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Music.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="gold_order.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="order.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -81,6 +81,7 @@
     <ClCompile Include="GameDlg.cpp" />
     <ClCompile Include="MenuDlg.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="VictoryDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -88,6 +89,7 @@
     <ClInclude Include="Library.h" />
     <ClInclude Include="MenuDlg.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="VictoryDlg.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="KIT.rc" />
@@ -112,12 +114,15 @@
     <Image Include="catapult_2.bmp" />
     <Image Include="catapult_3.bmp" />
     <Image Include="catapult_4.bmp" />
+    <Image Include="gold_order.bmp" />
     <Image Include="guy_1.bmp" />
     <Image Include="guy_2.bmp" />
     <Image Include="guy_3.bmp" />
     <Image Include="guy_4.bmp" />
     <Image Include="guy_5.bmp" />
     <Image Include="Menu.bmp" />
+    <Image Include="Music.bmp" />
+    <Image Include="order.bmp" />
     <Image Include="stone.bmp" />
     <Image Include="victory_1.bmp" />
     <Image Include="victory_2.bmp" />

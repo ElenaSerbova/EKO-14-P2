@@ -7,10 +7,9 @@ GameDlg::GameDlg(void)
 	ptr = this;
 	hp = 10;
 	level = 0;
-	coins = 0;
 	score = 0;
 	anim = 0;
-	orders = 0;
+	bonus_coins = bonus_score = 0;
 }
 
 GameDlg::~GameDlg(void)
@@ -60,15 +59,18 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 	COINS = GetDlgItem(hwnd, IDC_COINS);
 	SCORE = GetDlgItem(hwnd, IDC_SCORE);
 
-	CreateToolTip(DESTROY, hwnd, L"Вербует одного айтишника (пропадает нажатая вами иконка). Стоимость:");
-	CreateToolTip(DESTROYJ, hwnd, L"Вербует строку айтишников (пропадает строка иконок). Стоимость:");
-	CreateToolTip(DESTROYI, hwnd, L"Вербует столбец айтишников (пропадает столбец иконок). Стоимость:");
-
+	CreateToolTip(DESTROY, hwnd, L"Пропадает нажатая вами иконка. Стоимость: 3 монетs");
+	CreateToolTip(DESTROYJ, hwnd, L"Пропадает вся строка в которой находилась нажатая вами иконка. Стоимость: 39 монет");
+	CreateToolTip(DESTROYI, hwnd, L"Пропадает весь столбец в котором ноходилась нажатая вами иконка. Стоимость: 39 монет");
+	CreateToolTip(MCOINS, hwnd, L"Получаете дополнительные монеты. Стоимость: 99 монет");
+	CreateToolTip(MSCORE, hwnd, L"Получаете дополнительные очки. Стоимость: 99 монет");
+	CreateToolTip(TEA, hwnd, L"Очищаете все поле, тем самым заполняете катапульты. Стоимость: 399 монет");
 
 	build_on = CreateWindow(L"STATIC", NULL, WS_CHILD | WS_VISIBLE | SS_BITMAP, 540, 120, 300, 220, hwnd, NULL, GetModuleHandle(NULL), NULL);
+	music_by = CreateWindow(L"STATIC", NULL, WS_CHILD | WS_VISIBLE | SS_BITMAP | SSTF_BORDER, 540, 570, 300, 50, hwnd, NULL, GetModuleHandle(NULL), NULL);
 	GetClientRect(hwnd, &cd);
 
-	phase = 0;
+	ptr->music = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP31));
 
 	ptr->catapult_b[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP3));
 	ptr->catapult_b[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP4));
@@ -101,14 +103,24 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 	ptr->icons[5] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP2));
 	ptr->icons[6] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP21));
 
+	ptr->order[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP32));
+	ptr->order[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP33));
+
+	for (int i = 0; i < 3; i++)
+	{
+		TCHAR nom[10];
+		orders_on[i] = new HANDLE;
+		*orders_on[i] = CreateWindow(L"STATIC", nom, WS_CHILD | WS_VISIBLE | SS_BITMAP, 540 + i * 100, 20, 100, 100, hwnd, NULL, GetModuleHandle(0), NULL);
+		SendMessage((HWND)*orders_on[i], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)order[0]);
+	}
+
 	for (int i = 0; i < 11; i++)
 	{
 		for (int j = 0; j < 10; j++)
 		{
 			TCHAR nom[10];
 			field[i][j] = new HANDLE;
-			*field[i][j] = CreateWindowEx(NULL, L"BUTTON", nom, WS_CHILD | WS_VISIBLE | BS_FLAT, 20 + j * 50, 20 + i * 50, 50, 50, hwnd, NULL, GetModuleHandle(0), NULL);
-			SetWindowLong((HWND)*field[i][j], GWL_STYLE, ::GetWindowLong((HWND)*field[i][j], GWL_STYLE) | BS_BITMAP | BS_FLAT);
+			*field[i][j] = CreateWindowEx(NULL, L"BUTTON", nom, WS_CHILD | WS_VISIBLE | BS_FLAT | BS_BITMAP, 20 + j * 50, 20 + i * 50, 50, 50, hwnd, NULL, GetModuleHandle(0), NULL);
 			SendMessage((HWND)*field[i][j], BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)icons[game.Get(i, j)]);
 		}
 	}
@@ -126,21 +138,113 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 	SetWindowText(HP, tmpbuf);
 	_itot_s(level + 1, tmpbuf, 10);
 	SetWindowText(LEVEL, tmpbuf);
-	_itot_s(coins, tmpbuf, 10);
+	_itot_s(game.coins_(), tmpbuf, 10);
 	SetWindowText(COINS, tmpbuf);
 	_itot_s(score, tmpbuf, 10);
 	SetWindowText(SCORE, tmpbuf);
 
 	SendMessage(build_on, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->build[level][anim]);
+	SendMessage(music_by, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->music);
 
 	return 0;
 }
 
 void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 {
-
+	if (id == DESTROY && game.coins_() >= 3 && !block)
+	{
+		clearbonus(); 
+		block = true; 
+		game.minus_(3);
+		TCHAR tmpbuf[10];
+		_itot_s(ptr->game.coins_(), tmpbuf, 10);
+		SetWindowText(ptr->COINS, tmpbuf);
+	}
+	if (id == DESTROYI && game.coins_() >= 39 && !blocki)
+	{
+		clearbonus(); 
+		blocki = true; 
+		game.minus_(39);
+		TCHAR tmpbuf[10];
+		_itot_s(ptr->game.coins_(), tmpbuf, 10);
+		SetWindowText(ptr->COINS, tmpbuf);
+	}
+	if (id == DESTROYJ && game.coins_() >= 39 && !blockj)
+	{
+		clearbonus(); 
+		blockj = true; 
+		game.minus_(39);
+		TCHAR tmpbuf[10];
+		_itot_s(ptr->game.coins_(), tmpbuf, 10);
+		SetWindowText(ptr->COINS, tmpbuf);
+	}
+	if (id == MCOINS && game.coins_() >= 99)
+	{
+		clearbonus(); 
+		bonus_coins++; 
+		game.minus_(99);
+		TCHAR tmpbuf[10];
+		_itot_s(ptr->game.coins_(), tmpbuf, 10);
+		SetWindowText(ptr->COINS, tmpbuf);
+	}
+	if (id == MSCORE && game.coins_() >= 99)
+	{
+		clearbonus(); 
+		bonus_score += 20; 
+		game.minus_(99);
+		TCHAR tmpbuf[10];
+		_itot_s(ptr->game.coins_(), tmpbuf, 10);
+		SetWindowText(ptr->COINS, tmpbuf);
+	}
+	if (id == TEA && game.coins_() >= 199)
+	{
+		game.clearselect();
+		game.destroyall();
+		game.delete3match();
+		clearbonus();
+		for (int j = 0; j < 10; j++)
+		{
+			game.fallcolone(j);
+			if (ptr->game.Get(10, j) == 6)
+			{
+				ptr->game.Set(10, j, 0);
+				SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[1]);
+			}
+		}
+		game.minus_(199);
+		TCHAR tmpbuf[10];
+		_itot_s(ptr->game.coins_(), tmpbuf, 10);
+		SetWindowText(ptr->COINS, tmpbuf);
+	}
 	if (id == SHOT)
 	{
+		count_but++;
+
+		if (count_but > 3 && count_but < 6)
+		{
+			for (int j = 0; j < orders; j++)
+			{
+				SendMessage((HWND)*orders_on[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)order[1]);
+			}
+			orders = 2;
+			for (int j = 0; j < orders; j++)
+			{
+				SendMessage((HWND)*orders_on[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)order[0]);
+			}
+		}
+		else if (count_but > 6)
+		{
+			for (int j = 0; j < orders; j++)
+			{
+				SendMessage((HWND)*orders_on[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)order[1]);
+			}
+			orders = 1;
+			for (int j = 0; j < orders; j++)
+			{
+				SendMessage((HWND)*orders_on[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)order[0]);
+			}
+		}
+
 		hp = hp - game.count_stone();
 
 		if (hp > 0)
@@ -167,24 +271,24 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 
 			if (level == 0)
 			{
-				if (hp == 6) anim = 1;
-				if (hp == 4) anim = 2;
-				if (hp == 2) anim = 3;
+				if (hp <= 6) anim = 1;
+				if (hp <= 4) anim = 2;
+				if (hp <= 2) anim = 3;
 			}
 			if (level == 1)
 			{
-				if (hp == 12) anim = 1;
-				if (hp == 9) anim = 2;
-				if (hp == 6) anim = 3;
-				if (hp == 3) anim = 4;
+				if (hp <= 12) anim = 1;
+				if (hp <= 9) anim = 2;
+				if (hp <= 6) anim = 3;
+				if (hp <= 3) anim = 4;
 			}
 
 			if (level == 2)
 			{
-				if (hp == 16) anim = 1;
-				if (hp == 12) anim = 2;
-				if (hp == 7) anim = 3;
-				if (hp == 3) anim = 4;
+				if (hp <= 16) anim = 1;
+				if (hp <= 12) anim = 2;
+				if (hp <= 7) anim = 3;
+				if (hp <= 3) anim = 4;
 			}
 
 			if (hp < 0) hp = 0;
@@ -211,53 +315,130 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 				SendMessage((HWND)*catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)catapult_b[0]);
 			}
 
-			/*VictoryDlg dlg(orders, score);
-			DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG3), NULL, VictoryDlg::DlgProc);*/
+			VictoryDlg dlg(orders, score, platinum);
+			DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(VICTORY_SCREEN), NULL, VictoryDlg::DlgProc);
+
+			for (int i = 0; i < 3; i++) SendMessage((HWND)*orders_on[i], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)order[0]);
 
 			game.generatefield();
 			anim = 0;
+			orders = 3;
+			count_but = 0;
 			level++;
 
-			if (level == 1) hp = 15;
-			if (level == 2) hp = 20;
+			if (level == 1)
+			{
+				hp = 15;
+			}
+			if (level == 2)
+			{
+				hp = 20;
+			}
 			if (level > 2)
 			{
 				level = 0;
 				hp = 10;
 			}
-
+			platinum = true;
 			TCHAR tmpbuf[10];
 			_itot_s(hp, tmpbuf, 10);
 			SetWindowText(HP, tmpbuf);
+			_itot_s(level + 1, tmpbuf, 10);
+			SetWindowText(LEVEL, tmpbuf);
 		}
 	}
-
-	if (phase == 0)
+	if (!block && !blockj && !blocki)
 	{
-		TCHAR nom[10];
-		for (int i = 0; i < 11; i++)
-			for (int j = 0; j < 10; j++)
+		if (phase == 0)
+		{
+			TCHAR nom[10];
+			for (int i = 0; i < 11; i++)
 			{
-			if (hwndCtl == *field[i][j])
-			{
-				game.click(i, j);
-
-				if (game.getss())
+				for (int j = 0; j < 10; j++)
 				{
-					if (game.isswap())
+					if (hwndCtl == *field[i][j])
 					{
-						game.swap();
-						phase++;
-						SetTimer(hwnd, NULL, 100, NULL);
-					}
-					else
-					{
-						game.unselect();
-						game.setbs(i, j);
+						game.click(i, j);
+
+						if (game.getss())
+						{
+							if (game.isswap())
+							{
+								game.swap();
+								phase++;
+								SetTimer(hwnd, NULL, 100, NULL);
+							}
+							else
+							{
+								game.unselect();
+								game.setbs(i, j);
+							}
+						}
 					}
 				}
 			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < 11; i++)
+		{
+			for (int j = 0; j < 10; j++)
+			{
+				if (hwndCtl == *field[i][j])
+				{
+					if (block)
+					{
+						game.clearselect();
+						game.destroy(i, j);
+						clearbonus();
+						platinum = false;
+					}
+					if (blocki)
+					{
+						game.clearselect();
+						game.destroyi(j);
+						clearbonus();
+						platinum = false;
+					}
+					if (blockj)
+					{
+						game.clearselect();
+						game.destroyj(i);
+						clearbonus();
+						platinum = false;
+					}
+					game.delete3match_bonus();
+				}
 			}
+		}
+		for (int j = 0; j < 10; j++)
+		{
+			game.fallcolone(j);
+			if (ptr->game.Get(10, j) == 6)
+			{
+				ptr->game.Set(10, j, 0);
+				SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[1]);
+			}
+		}
+		while (game.select3match())
+		{
+			game.delete3match_bonus();
+
+			for (int j = 0; j < 10; j++)
+			{
+				game.fallcolone(j);
+				if (ptr->game.Get(10, j) == 6)
+				{
+					ptr->game.Set(10, j, 0);
+					SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[1]);
+				}
+			}
+		}
+		TCHAR tmpbuf[10];
+		score = game.score_() + bonus_score;
+		_itot_s(score, tmpbuf, 10);
+		SetWindowText(SCORE, tmpbuf);
 	}
 
 	for (int i = 0; i < 11; i++)
@@ -283,6 +464,7 @@ BOOL CALLBACK GameDlg::DlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lP
 		switch (ptr->phase)
 		{
 		case 1:
+			ptr->platinum = false;
 			ptr->game.clearselect();
 			if (ptr->game.select3match())
 			{
@@ -291,17 +473,14 @@ BOOL CALLBACK GameDlg::DlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lP
 					ptr->game.delete3match();
 
 					for (int j = 0; j < 10; j++)
-						ptr->game.fallcolone(j);
-
-					for (int j = 0; j < 10; j++)
 					{
+						ptr->game.fallcolone(j);
 						if (ptr->game.Get(10, j) == 6)
 						{
 							ptr->game.Set(10, j, 0);
 							SendMessage((HWND)*ptr->catapult[j], STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->catapult_b[1]);
 						}
 					}
-
 					ptr->game.unselect();
 				}
 			}
@@ -325,12 +504,12 @@ BOOL CALLBACK GameDlg::DlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lP
 				{
 				SendMessage((HWND)*ptr->field[i][j], BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)ptr->icons[ptr->game.Get(i, j)]);
 				}
-			ptr->score = ptr->game.score_();
-			ptr->coins = ptr->game.coins_();
+			ptr->score = ptr->game.score_() + ptr->bonus_score;
 			TCHAR tmpbuf[10];
+			ptr->game.plus_(ptr->bonus_coins);
 			_itot_s(ptr->score, tmpbuf, 10);
 			SetWindowText(ptr->SCORE, tmpbuf);
-			_itot_s(ptr->coins, tmpbuf, 10);
+			_itot_s(ptr->game.coins_(), tmpbuf, 10);
 			SetWindowText(ptr->COINS, tmpbuf);
 		}
 		break;

@@ -9,7 +9,7 @@ class Game
 	bool first_select = false;
 	bool reset = false;
 
-	int score = 0, coins = 0;
+	int score = 0, coins = 999;
 	int firsti, firstj, secondi, secondj;
 public:
 	Game()
@@ -67,6 +67,8 @@ public:
 	{
 		return coins;
 	}
+	void minus_(int coins) { this->coins -= coins; }
+	void plus_(int coins) { this->coins += coins; }
 
 	void unselect(){ second_select = 0; first_select = 0; }
 
@@ -89,6 +91,16 @@ public:
 		{
 			if (*field[i][j] != 6 && *field[i][j] != 0)
 				selectfield[i][j] = 1;
+		}
+	}
+	void destroyall()
+	{
+		for (int i = 0; i < 11; i++)
+		{
+			for (int j = 0; j < 10; j++)
+			{
+				selectfield[i][j] = 1;
+			}
 		}
 	}
 
@@ -212,6 +224,23 @@ public:
 		}
 	}
 
+	void delete3match_bonus()
+	{
+		for (int i = 0; i < 11; i++)
+		{
+			for (int j = 0; j < 10; j++)
+			{
+				if (*field[i][j] != 6 && *field[i][j] != 0)
+				{
+					if (selectfield[i][j] == 1)
+					{
+						*field[i][j] = 0;
+						score += 20;
+					}
+				}
+			}
+		}
+	}
 	void delete3match()
 	{
 		int co = 0;
