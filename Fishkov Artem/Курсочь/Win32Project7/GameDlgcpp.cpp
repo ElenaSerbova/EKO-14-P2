@@ -70,6 +70,7 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 {
 	widescrin = 1;
 	monsterstep = 0;
+	ptr->CONTINUE = GetDlgItem(hwnd, IDC_CON);
 	ptr->R = GetDlgItem(hwnd, IDC_R);
 	ptr->EB = GetDlgItem(hwnd, IDC_EB);
 	ptr->RAGE = GetDlgItem(hwnd, IDC_RAGE);
@@ -101,7 +102,7 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 	ptr->Back = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP1));
 	if (widescrin)
 	{
-		HeroIconSpace = CreateWindow(L"STATIC", NULL, WS_VISIBLE | WS_CHILD | SS_BITMAP, 0, 220, 275, 353, hwnd, NULL, GetModuleHandle(0), NULL);
+		HeroIconSpace = CreateWindow(L"STATIC", NULL, WS_VISIBLE | WS_CHILD | SS_BITMAP, 0, 275, 275, 353, hwnd, NULL, GetModuleHandle(0), NULL);
 		MonstrIconSpace = CreateWindow(L"STATIC", NULL, WS_VISIBLE | WS_CHILD | SS_BITMAP, 1300, 275, 275, 353, hwnd, NULL, GetModuleHandle(0), NULL);
 
 	}
@@ -125,17 +126,15 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 	for (int i = 0; i < 10;i++)
 	for (int j = 0; j < 20; j++)
 	{
-		TCHAR nom[10];
 		field[i][j] = new HANDLE;
-		_itot_s(game.Get(j, i), nom, 9);
 		if (widescrin)
 		{
-			*field[i][j] = CreateWindowEx(NULL, L"BUTTON", nom, WS_CHILD | WS_VISIBLE | BS_FLAT, 300 + j * 50, 15 + i * 50, 50, 50, hwnd, NULL, GetModuleHandle(0), NULL);
+			*field[i][j] = CreateWindowEx(NULL, L"BUTTON",NULL, WS_CHILD | WS_VISIBLE | BS_FLAT, 300 + j * 50, 15 + i * 50, 50, 50, hwnd, NULL, GetModuleHandle(0), NULL);
 			SetWindowLong((HWND)*field[i][j], GWL_STYLE, ::GetWindowLong((HWND)*field[i][j], GWL_STYLE) | BS_BITMAP | BS_FLAT);
 		}
 		else
 		{
-			*field[i][j] = CreateWindowEx(NULL, L"BUTTON", nom, WS_CHILD | WS_VISIBLE | BS_FLAT, 50 + j * 50, 15 + i * 50, 50, 50, hwnd, NULL, GetModuleHandle(0), NULL);
+			*field[i][j] = CreateWindowEx(NULL, L"BUTTON",NULL, WS_CHILD | WS_VISIBLE | BS_FLAT, 50 + j * 50, 15 + i * 50, 50, 50, hwnd, NULL, GetModuleHandle(0), NULL);
 			SetWindowLong((HWND)*field[i][j], GWL_STYLE, ::GetWindowLong((HWND)*field[i][j], GWL_STYLE) | BS_BITMAP | BS_FLAT);
 		}
 	}
@@ -143,12 +142,16 @@ BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 	SendMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.monstr.pic[0]);
 
 	UpdateAll();
-
+	TCHAR nom[10];
+	_itot_s(game.continues, nom, 9);
+	SetWindowText(CONTINUE, nom);
 	return 0;
 }
 
 void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 {
+	if (game.gameover)
+		return;
 	if (hwndCtl != R && hwndCtl != EB)
 	{
 		TCHAR nom[10];
@@ -221,33 +224,49 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 			dlg.page_count = 1;
 			DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG4), NULL, ComixDlg::DlgProc);
 			EndDialog(hwnd, 0);
-			âûô
+			
 		}
+		if (ptr->game.fullgameover)
+		{
+			PlaySound(MAKEINTRESOURCE(IDR_WAVE6), GetModuleHandle(NULL), SND_RESOURCE);
+			ComixDlg dlg;
+			dlg.pages[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP39));
+			DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG4), NULL, ComixDlg::DlgProc);
+			EndDialog(hwnd, 0);
+		}
+		else
 		if (ptr->game.gameover == 1)
 		{
-			ptr->game.gameover = 0;
-			PlaySound(MAKEINTRESOURCE(IDR_WAVE3), GetModuleHandle(NULL), SND_RESOURCE);
+			
+			PlaySound(MAKEINTRESOURCE(IDR_WAVE8), GetModuleHandle(NULL), SND_RESOURCE);
+			ComixDlg dlg;
+			dlg.pages[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP38));
+			DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG4), NULL, ComixDlg::DlgProc);
+			ShowWindow(hwnd, SW_SHOW);
 			if (MessageBox(hwnd, L"YOU LOSE!\n CONTINUE?", L"YOU LOSE!", MB_YESNO) == IDNO)
 			{
-				EndDialog(hwnd, 0);
+				EndDialog(hwnd, 0);	
 				return;
 
 			}
 			ptr->game.Restart();
 			ptr->UpdateAll();
 
-			if (ptr->game.fullgameover)
-			{
-				MessageBox(hwnd, L"GAME OVER!!!", L"GAME OVER!!!", MB_OK);
-				EndDialog(hwnd, 0);
-			}
+			TCHAR nom[10];
+			_itot_s(game.continues, nom, 9);
+			SetWindowText(CONTINUE, nom);
+
 		}
+		else
 		if (ptr->game.win == 1)
 		{
-			ptr->game.win = 0;
-			PlaySound(MAKEINTRESOURCE(IDR_WAVE4), GetModuleHandle(NULL), SND_RESOURCE);
-			MessageBox(hwnd, L"YOU WON!", L"YOU WON!", MB_OK);
-
+			PlaySound(MAKEINTRESOURCE(IDR_WAVE7), GetModuleHandle(NULL), SND_RESOURCE);
+			
+			ShowWindow(hwnd, SW_HIDE);
+			ComixDlg dlg;
+			dlg.pages[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP40));
+			DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG4), NULL, ComixDlg::DlgProc);
+			ShowWindow(hwnd, SW_SHOW);
 			ptr->game.Restart();
 			PostMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->ptr->game.hero.pic[0]);
 			PostMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.monstr.pic[0]);

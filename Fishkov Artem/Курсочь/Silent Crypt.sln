@@ -3,16 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Win32Project7", "Win32Project7\Win32Project7.vcxproj", "{D0D90584-2EC5-488D-BFC3-B1A6489FB214}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Silent Crypt", "Win32Project7\Win32Project7.vcxproj", "{D0D90584-2EC5-488D-BFC3-B1A6489FB214}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|Win32 = Debug|Win32
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0D90584-2EC5-488D-BFC3-B1A6489FB214}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{D0D90584-2EC5-488D-BFC3-B1A6489FB214}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{D0D90584-2EC5-488D-BFC3-B1A6489FB214}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{D0D90584-2EC5-488D-BFC3-B1A6489FB214}.Debug|Win32.ActiveCfg = Debug|Win32
 		{D0D90584-2EC5-488D-BFC3-B1A6489FB214}.Debug|Win32.Build.0 = Debug|Win32
+		{D0D90584-2EC5-488D-BFC3-B1A6489FB214}.Release|Any CPU.ActiveCfg = Release|Win32
+		{D0D90584-2EC5-488D-BFC3-B1A6489FB214}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{D0D90584-2EC5-488D-BFC3-B1A6489FB214}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{D0D90584-2EC5-488D-BFC3-B1A6489FB214}.Release|Win32.ActiveCfg = Release|Win32
 		{D0D90584-2EC5-488D-BFC3-B1A6489FB214}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection

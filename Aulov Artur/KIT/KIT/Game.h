@@ -9,7 +9,7 @@ class Game
 	bool first_select = false;
 	bool reset = false;
 
-	int score = 0, coins = 999;
+	int score = 0, coins = 0;
 	int firsti, firstj, secondi, secondj;
 public:
 	Game()

@@ -180,6 +180,18 @@
     <Image Include="FINAL2.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Просто победа.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="FAIL.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="GAMEOVER.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="win.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="punch1.wav">
@@ -188,14 +200,20 @@
     <Media Include="knife_stab.wav">
       <Filter>Resource Files</Filter>
     </Media>
-    <Media Include="..\..\..\..\..\..\Downloads\gameover.wav">
-      <Filter>Resource Files</Filter>
-    </Media>
-    <Media Include="..\..\..\..\..\..\Downloads\lose.wav">
-      <Filter>Resource Files</Filter>
-    </Media>
     <Media Include="..\..\..\..\..\..\Downloads\win.wav">
       <Filter>Resource Files</Filter>
     </Media>
+    <Media Include="gameover.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="lose.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="win.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

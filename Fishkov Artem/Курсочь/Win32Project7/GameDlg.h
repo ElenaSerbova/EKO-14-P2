@@ -61,6 +61,7 @@ public:
 	HBITMAP NORMAL;
 	HBITMAP TAKE_DMG;
 	HBITMAP ATTACK;
+
 	HWND HEAL;
 	HWND DMG;
 	HWND HP;
@@ -119,7 +120,7 @@ class GameDlg
 public:
 	GameDlg(void);
 public:
-	
+	HWND CONTINUE;
 	bool monsterstep;
 	~GameDlg(void);
 	static BOOL CALLBACK DlgProc(HWND hWnd, UINT mes, WPARAM wp, LPARAM lp);

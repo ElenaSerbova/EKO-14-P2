@@ -109,8 +109,10 @@
     <Image Include="BOSS.bmp" />
     <Image Include="BOSS_DMG.bmp" />
     <Image Include="EXIT.bmp" />
+    <Image Include="FAIL.bmp" />
     <Image Include="FINAL.bmp" />
     <Image Include="FINAL2.bmp" />
+    <Image Include="GAMEOVER.bmp" />
     <Image Include="GOLEM.bmp" />
     <Image Include="GOLEM_DMG.bmp" />
     <Image Include="Help.bmp" />
@@ -133,18 +135,24 @@
     <Image Include="Test.bmp" />
     <Image Include="Test2.bmp" />
     <Image Include="WideBG.bmp" />
+    <Image Include="win.bmp" />
     <Image Include="Начало 1.bmp" />
     <Image Include="Начало 1.png" />
     <Image Include="Начало 2.bmp" />
     <Image Include="Начало 2.png" />
+    <Image Include="Просто победа.bmp" />
     <Image Include="финал.png" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="..\..\..\..\..\..\Downloads\gameover.wav" />
-    <Media Include="..\..\..\..\..\..\Downloads\lose.wav" />
     <Media Include="..\..\..\..\..\..\Downloads\win.wav" />
+    <Media Include="gameover.wav" />
     <Media Include="knife_stab.wav" />
+    <Media Include="lose.wav" />
     <Media Include="punch1.wav" />
+    <Media Include="win.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

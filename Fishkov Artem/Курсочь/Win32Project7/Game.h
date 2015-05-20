@@ -117,7 +117,7 @@ public:
 		hero.pic[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP16));
 		hero.pic[2] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP17));
 		SetMonsters();
-		lvl = 4;
+		lvl = 0;
 		monstr = Lvls[lvl];
 		win = 0;
 		gameover = 0;

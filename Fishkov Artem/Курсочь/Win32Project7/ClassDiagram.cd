@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ComixDlg" Collapsed="true">
+    <Position X="6" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAACAAAECIAAAAAAAAAgABQAAAgAEKAAAAAQACAAAA=</HashCode>
+      <FileName>Comix.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="creature" Collapsed="true">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAABIAKAAAAAAEAAAAAEIACAAABAAAQAAAI=</HashCode>
+      <FileName>Monstrs.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game">
+    <Position X="8.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EADAAEAAAEiAQADAAAgAAACCEAiAAAQAgAAAQAAAAIE=</HashCode>
+      <FileName>Game.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameDlg" Collapsed="true">
+    <Position X="6" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQCACAAgIAJAAABABAJABAAQAAAggEgIAQAAYAgAASA=</HashCode>
+      <FileName>GameDlg.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hero" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAABIABAAAAAAAAAAgAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Monstrs.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InfoH" Collapsed="true">
+    <Position X="6" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAIABCAAAAAAICKIgAAA4AAEAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>GameDlg.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InfoM" Collapsed="true">
+    <Position X="6" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIABGAAAAAAICKIgAAAZACEAAAAAAAAAACAAEA=</HashCode>
+      <FileName>GameDlg.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuDlg" Collapsed="true">
+    <Position X="6" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAACAAAACIIAAAAAEAAAAAQAgAgAEACIAAAQAAAAAA=</HashCode>
+      <FileName>MenuDlg.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Monstr" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAABAAAAAAAAAAAAggAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Monstrs.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
