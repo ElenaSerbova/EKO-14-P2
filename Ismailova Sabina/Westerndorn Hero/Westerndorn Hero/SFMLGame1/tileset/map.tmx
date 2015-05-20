@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="15" tileheight="15">
+ <tileset firstgid="1" name="tilea4" tilewidth="15" tileheight="15">
+  <image source="../../../SB/SB/tileset/tilea4.png" trans="ff00ff" width="512" height="480"/>
+ </tileset>
+ <layer name="Background" width="10" height="10">
+  <data>
+   <tile gid="600"/>
+   <tile gid="603"/>
+   <tile gid="603"/>
+   <tile gid="603"/>
+   <tile gid="603"/>
+   <tile gid="603"/>
+   <tile gid="603"/>
+   <tile gid="603"/>
+   <tile gid="603"/>
+   <tile gid="604"/>
+   <tile gid="634"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="672"/>
+   <tile gid="634"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="672"/>
+   <tile gid="634"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="637"/>
+   <tile gid="672"/>
+   <tile gid="634"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="637"/>
+   <tile gid="672"/>
+   <tile gid="634"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="637"/>
+   <tile gid="672"/>
+   <tile gid="634"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="672"/>
+   <tile gid="634"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="672"/>
+   <tile gid="634"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="635"/>
+   <tile gid="672"/>
+   <tile gid="702"/>
+   <tile gid="703"/>
+   <tile gid="703"/>
+   <tile gid="703"/>
+   <tile gid="703"/>
+   <tile gid="703"/>
+   <tile gid="703"/>
+   <tile gid="703"/>
+   <tile gid="703"/>
+   <tile gid="706"/>
+  </data>
+ </layer>
+ <objectgroup name="Champion">
+  <object name="kolobosha" x="80" y="48">
+   <properties>
+    <property name="kolobosha" value="ebaniyloh"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object name="test2" type="krug" x="52" y="98" width="1" height="1" rotation="3">
+   <properties>
+    <property name="randominfo1" value="lohh"/>
+   </properties>
+   <ellipse/>
+  </object>
+ </objectgroup>
+</map>

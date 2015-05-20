@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="ddddd" tilewidth="32" tileheight="32">
+  <image source="../../../SB/SB/tileset/SpriteCompEC.png" trans="ff00ff" width="288" height="192"/>
+ </tileset>
+ <objectgroup name="Hero">
+  <object gid="1" x="63" y="64"/>
+ </objectgroup>
+</map>
