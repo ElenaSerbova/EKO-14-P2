@@ -46,7 +46,7 @@ void MenuDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 		begin.pages[1] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP35));
 		begin.page_count = 1;
 		DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG4), NULL, ComixDlg::DlgProc);
-		DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG1), NULL, GameDlg::DlgProc);
+		DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG6), NULL, GameDlg::DlgProc);
 		ShowWindow(hwnd, SW_SHOW);
 	}
 	else if (hwndCtl == HelpB)

@@ -74,7 +74,7 @@ void GameDlg::UpdateAll()
 
 BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 {
-	widescrin = 0;
+	widescrin = 1;
 	monsterstep = 0;
 	ptr->CONTINUE = GetDlgItem(hwnd, IDC_CON);
 	ptr->R = GetDlgItem(hwnd, IDC_R);
@@ -158,6 +158,10 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 {
 	if (game.gameover)
 		return;
+	if (hwndCtl == GetDlgItem(hwnd, IDC_BUTTON3))
+	{
+		game.hero.concentration++;
+	}
 	if (hwndCtl != R && hwndCtl != EB)
 	{
 		TCHAR nom[10];
@@ -323,6 +327,8 @@ BOOL CALLBACK GameDlg::DlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lP
 		HANDLE_MSG(hwnd, WM_CLOSE, ptr->Cls_OnClose);
 		HANDLE_MSG(hwnd, WM_INITDIALOG, ptr->Cls_OnInitDialog);
 		HANDLE_MSG(hwnd, WM_COMMAND, ptr->Cls_OnCommand);
+
+		return 0;
 	case WM_PAINT:
 
 		HDC hdc, hmdc;
@@ -355,6 +361,9 @@ BOOL CALLBACK GameDlg::DlgProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lP
 			ShowWindow(ptr->HeroInfo.HEAL, SW_HIDE);
 			KillTimer(hwnd, NULL);
 			return 0;
+	
+	
+	
 			
 	
 
