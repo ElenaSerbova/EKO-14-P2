@@ -4,6 +4,12 @@
 #pragma comment(lib, "winmm.lib")
 
 	
+DWORD PlayTwoSound(PVOID v)
+{
+	PlaySound(MAKEINTRESOURCE(IDR_WAVE1), GetModuleHandle(NULL), SND_RESOURCE);
+	PlaySound(MAKEINTRESOURCE(IDR_WAVE2), GetModuleHandle(NULL), SND_RESOURCE);
+	return 0;
+}
 
 GameDlg* GameDlg::ptr = NULL;
 
@@ -68,7 +74,7 @@ void GameDlg::UpdateAll()
 
 BOOL GameDlg::Cls_OnInitDialog(HWND hwnd, HWND hwndFocus, LPARAM lParam)
 {
-	widescrin = 1;
+	widescrin = 0;
 	monsterstep = 0;
 	ptr->CONTINUE = GetDlgItem(hwnd, IDC_CON);
 	ptr->R = GetDlgItem(hwnd, IDC_R);
@@ -186,24 +192,31 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 		else
 			ShowWindow(ptr->HeroInfo.HEAL, SW_HIDE);
 
+		if (game.monstr.attacket != 0 && game.hero.attacket != 0)
+		{
+			CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)PlayTwoSound, NULL, 0, NULL);
+			SetTimer(ptr->hwnd, NULL, 1000, NULL);
+			PostMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.monstr.pic[2]);
+			ShowWindow(ptr->MonstrInfo.DMG, SW_SHOW);
+			PostMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->ptr->game.hero.pic[2]);
+			ShowWindow(ptr->HeroInfo.DMG, SW_SHOW);
 
+		}
+		else
 		if (game.monstr.attacket != 0)
 		{
 			SetTimer(ptr->hwnd, NULL, 1000, NULL);
 			PostMessage((HWND)MonstrIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->game.monstr.pic[2]);
-			PlaySound(MAKEINTRESOURCE(IDR_WAVE2), GetModuleHandle(NULL), SND_RESOURCE);
+			PlaySound(MAKEINTRESOURCE(IDR_WAVE2), GetModuleHandle(NULL), SND_RESOURCE|SND_ASYNC);
 			ShowWindow(ptr->MonstrInfo.DMG, SW_SHOW);
 
-
-
-
 		}
-
+		else
 		if (game.hero.attacket != 0)
 		{
 			SetTimer(ptr->hwnd, NULL, 1000, NULL);
 			PostMessage((HWND)HeroIconSpace, STM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)ptr->ptr->game.hero.pic[2]);
-			PlaySound(MAKEINTRESOURCE(IDR_WAVE1), GetModuleHandle(NULL), SND_RESOURCE);
+			PlaySound(MAKEINTRESOURCE(IDR_WAVE1), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC);
 			ShowWindow(ptr->HeroInfo.DMG, SW_SHOW);
 
 
@@ -217,6 +230,7 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 		UpdateAll();
 		if (ptr->game.lvl > 4)
 		{
+			PlaySound(0, NULL,0);
 			ShowWindow(hwnd, SW_HIDE);
 			ComixDlg dlg;
 			dlg.pages[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP36));
@@ -228,7 +242,9 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 		}
 		if (ptr->game.fullgameover)
 		{
-			PlaySound(MAKEINTRESOURCE(IDR_WAVE6), GetModuleHandle(NULL), SND_RESOURCE);
+			ShowWindow(hwnd, SW_HIDE);
+			PlaySound(0, NULL, 0);
+			PlaySound(MAKEINTRESOURCE(IDR_WAVE6), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC);
 			ComixDlg dlg;
 			dlg.pages[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP39));
 			DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG4), NULL, ComixDlg::DlgProc);
@@ -237,8 +253,9 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 		else
 		if (ptr->game.gameover == 1)
 		{
-			
-			PlaySound(MAKEINTRESOURCE(IDR_WAVE8), GetModuleHandle(NULL), SND_RESOURCE);
+			ShowWindow(hwnd, SW_HIDE);
+			PlaySound(0, NULL, 0);
+			PlaySound(MAKEINTRESOURCE(IDR_WAVE8), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC);
 			ComixDlg dlg;
 			dlg.pages[0] = LoadBitmap(GetModuleHandle(NULL), MAKEINTRESOURCE(IDB_BITMAP38));
 			DialogBox(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG4), NULL, ComixDlg::DlgProc);
@@ -260,7 +277,9 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 		else
 		if (ptr->game.win == 1)
 		{
-			PlaySound(MAKEINTRESOURCE(IDR_WAVE7), GetModuleHandle(NULL), SND_RESOURCE);
+			PlaySound(0, NULL, 0);
+			ShowWindow(hwnd, SW_HIDE);
+			PlaySound(MAKEINTRESOURCE(IDR_WAVE7), GetModuleHandle(NULL), SND_RESOURCE | SND_ASYNC);
 			
 			ShowWindow(hwnd, SW_HIDE);
 			ComixDlg dlg;
@@ -274,6 +293,7 @@ void GameDlg::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify)
 			ptr->UpdateAll();
 
 		}
+		ShowWindow(hwnd, SW_SHOW);
 	}
 	else
 	{
