@@ -1,0 +1,204 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+        .menu_item {
+            color: #EDD690;
+            text-align: center;
+            font-size: 15pt;
+        }
+
+            .menu_item > a {
+                color: #EDD690;
+                text-decoration: none;
+            }
+
+        .Menu {
+            margin-bottom: 9px;
+            position: absolute;
+            bottom: 5px;
+            width: 100vw;
+        }
+
+        .header {
+            position: relative;
+            height: 233px;
+            background-image: url(images/top-tail.jpg);
+            background-color: #c7b39b;
+            border-bottom: 2px solid black;
+        }
+
+        .LogoAndText {
+            display: block;
+            position: relative;
+            padding-top: 50px;
+            height: 100px;
+            margin-left: 30%;
+        }
+
+        .Logo {
+            display: block;
+            margin-right: 30px;
+            float: left;
+        }
+
+        .Text {
+            margin-top: -10px;
+            display: block;
+            margin: 0;
+            padding: 0;
+            font-size: 35pt;
+            color: #FFE6BE;
+        }
+
+        .Discription {
+            display: block;
+            margin: 0;
+            padding: 0;
+            font-size: 15pt;
+            color: #F5CD6A;
+            font-weight: bolder;
+        }
+
+        .content {
+            font-size: 10pt;
+            padding: 30px;
+            margin-left: 40vw;
+            width: 500px;
+            border: 1px solid #C1B1A4;
+            background-color: rgba(255,255,255,.75);
+            border-radius: 20px 0px;
+        }
+
+        .icon {
+            float: left;
+        }
+
+        .header {
+            height: 233px;
+            background-image: url(images/top-tail.jpg);
+        }
+
+        .footer {
+            font-size: 10pt;
+            color: #FFE6BE;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            height: 100px;
+            border-top-style: solid;
+            border-top-color: #FED36D;
+            border-top-width: 4px;
+            background-color: #48220F;
+            background: -moz-linear-gradient(bottom, #48220F 0%, #66371A 70%);
+            background: -webkit-linear-gradient(bottom, #48220F 0%,#66371A 70%);
+            background: -o-linear-gradient(bottom, #48220F 0%,#66371A 70%);
+            background: -ms-linear-gradient(bottom, #48220F 0%,#66371A 70%);
+            background: linear-gradient(bottom, #48220F 0%,#66371A 70%);
+        }
+
+        .copy {
+            float: left;
+            width: 50%;
+            padding-top: 20px;
+        }
+
+        .body {
+            padding-top: 20px;
+            width: 100%;
+            
+            margin-top: 0;
+            height: 60vh;
+            background-image: url(images/content-bg.jpg);
+            background-repeat: no-repeat;
+            background-position: top center;
+        }
+
+        body {
+            font-family: sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+        .textform
+        {
+            width:350px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header;-->
+    <div class="header">
+        <div class="LogoAndText">
+            <img src="images/logo.png" class="Logo">
+            <div style="float:left;">
+                <h1 class="Text">
+                    Coffee
+                </h1>
+                <h2 class="Discription">
+                    Is a brewed drink prepared from roasted coffee beans.
+                </h2>
+            </div>
+            <div style="position:relative;top:100px;">
+                <img src="images/icon-home.gif" style="float:left;">
+                <img src="images/icon-mail.gif" style="float:left;">
+                <img src="images/icon-map.gif" style="float:left;">
+
+            </div>
+        </div>
+        <div class="Menu">
+		<table style="width:70%; margin-left:auto;margin-right:auto;">
+		<tr>
+		<td>
+		<div class="menu_item" style="color:#FAC559"><a href="index.html">Домашняя</a></div>
+		</td>
+		<td style=" border-left:2px solid #7B513B">
+		<div class="menu_item"><a href="about.html">О нас</a></div>		
+		</td>
+		<td style=" border-left:2px solid #7B513B">
+		<div class="menu_item"><a href="articles.html">Артикулы</a></div>		
+		</td>
+		<td style=" border-left:2px solid #7B513B">
+		<div class="menu_item"><a href="contact.html">Контакты</a></div>		
+		</td>
+		<td style=" border-left:2px solid #7B513B">
+		<div class="menu_item"><a href="map.html">Карта сайта</a></div>		
+		</td>
+		<tr>
+		</table>
+	</div>
+    </div>
+    <!--//Body;-->
+    <div class="body">
+
+        <div class="content" style="margin-bottom:20px;">
+            <h1>Контакты</h1>
+            Если у вас есть что нам сказать, то мы ждем вашего письма.
+
+            <form>
+                <br/>
+                Твое имя:     
+                <input type="text" name="name" style="margin-left:42px;"/><br/><br/>
+                Твой e-mail:
+                <input type="text" name="name" style="margin-left:30px;"/><br/><br/>
+                Твой веб-сайт:
+                <input type="text" name="name" style="margin-left:12px;"/><br /><br/>
+                <p style="float:left;">Твое сообщение:</p>
+                <textarea class="textform" rows="20" name="email" style="resize:none;"></textarea><br />
+                <input type="submit" name="submit" style="margin-left:378px;" />
+            </form>
+        </div>
+
+    </div>
+    <!--//Footer;-->
+    <div class="footer">
+        <div class="copy" style="text-align:center; padding-top:33px;">
+            Copyright - Fishkov.
+        </div>
+        <div class="copy">
+            Design by: <img src="images/templates-logo.gif" />
+            Your Provider of
+            <a href="#"> Website Templates</a>
+        </div>
+    </div>
+</body>
+</html>
