@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)file:///C:/Users/kisil'/Desktop/Forms.html -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        .size {
+            width: 30px;
+        }
+        .sizeyear {
+            width:60px;
+        }
+    </style>
+</head>
+<body>
+    <form id="reg" name="reg">
+	<div style="float:left">
+		День:
+	</div>
+        <input class="size" type="text" id="day" name="day"style="float:left">
+        <div style="float:left">
+		Месяц:
+	</div>
+		<input class="size" type="text" id="month" name="month"style="float:left">
+        <div style="float:left">
+		Год:
+	</div>
+		<input class="sizeyear" type="text" id="year" name="year"style="float:left">
+		<br>
+		<br>	
+        <input type="button" value="Отправить" onclick="alertDay();">
+    </form>
+<script>
+    var days = 0, months = 0, years = 0;
+    function alertDay() {
+        days = document.forms["reg"].elements["day"].value;
+        months = document.forms["reg"].elements["month"].value;
+        years = document.forms["reg"].elements["year"].value;
+
+        console.log(days);
+        console.log(months);
+        console.log(years);
+        if (days > 0 && days < 32 && months > 0 && months < 13 && years > 1969)
+            alert(["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"][new Date(years, months - 1, days).getDay()]);
+        else
+            alert("Ошибка!");
+    }
+   
+</script>
+
+</body></html>
