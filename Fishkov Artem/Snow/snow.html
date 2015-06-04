@@ -1,0 +1,40 @@
+<html>
+<head>
+<style>
+ div
+ {
+	position:absolute
+ }
+</style>
+</head>
+<body>
+<script>
+function Flake(speed,size,amp,FId)
+{
+	this.amp=amp;
+	this.speed=speed;
+	this.center =Math.round(Math.random()*800)
+	this.x = 0;
+	this.y = 0;
+	this.size=size;
+	document.write("<div id='snow"+FId+"'>*</div>")
+	this.div =document.getElementById("snow"+FId);
+	this.div.style.color="red";
+	this.div.style.left= (this.x+this.center)+'px';
+	this.div.style.fontSize = this.size+'px'
+	this.update=function()
+	{
+		this.x = Math.sin(this.y)*this.amp;
+		this.div.style.left= (this.x+this.center)+'px';
+		this.y++;
+	}
+	setInterval(this.update,100);
+}
+for(var i=0;i<10;i++)
+{
+	arr=[];
+	arr[i]= new Flake(10,Math.random()*30+10,Math.random()*300+50,i);
+}
+</script>
+</body>
+</html>
