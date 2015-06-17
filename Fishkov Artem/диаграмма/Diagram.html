@@ -1,0 +1,58 @@
+<html>
+<head>
+	
+</head>
+<body>
+
+	<canvas id='canv' width="800" height="600">
+		
+	</canvas>
+		<script>
+	var Info ={};
+	Info["Ivan"] = 10;
+	Info["Nicolay"] = 5;
+	Info["Dmitry"] = 8;
+	Info["Dmitgry"] = 8;
+	Info["Dmitsgry"] = 12;
+	Info["Dmasdaitgry"] = 11;
+	Info["Dmitgr5y"] = 8;
+	Info["Dmitg4ry"] = 8;
+	Info["Dmit3gry"] = 8;
+	Info["Dmi2tgry"] = 8;
+	var canvas = document.getElementById('canv');
+	if (canvas.getContext)
+	{
+ 		 var ctx = canvas.getContext('2d');
+ 		 ctx.beginPath();
+ 		 ctx.moveTo(100.5,100.5);
+ 		 ctx.lineTo(100.5,500.5);
+ 		 ctx.lineTo(700.5,500.5);
+ 		 ctx.lineTo(695.5,505.5);
+ 		 ctx.moveTo(700.5,500.5);
+ 		 ctx.lineTo(695.5,495.5);
+ 		 ctx.moveTo(100.5,100.5);
+ 		 ctx.lineTo(95.5,105.5);
+ 		 ctx.moveTo(100.5,100.5);
+ 		 ctx.lineTo(105.5,105.5);
+ 		 ctx.stroke();
+ 		var col=0;
+ 		 	for(var prop in Info)
+ 		{
+ 			col++;		
+		}
+ 		 
+ 		 for(var i=0;i<13;i++)
+ 		 ctx.fillText(i+"-", 100-22,(12-i)*30+120);
+ 		ctx.font = (22-col)+"px serif";
+ 		var i=0;
+ 		for(var prop in Info)
+ 		{
+		ctx.fillStyle="rgb("+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+")";
+		ctx.fillText(prop,110+(i*(570/col)),520);
+		ctx.fillRect(110+(i*(570/col)),(12-Info[prop])*30+120,50-col,500-((12-Info[prop])*30+120));
+		i++;
+		}
+	}
+	</script>
+</body>
+</html>
