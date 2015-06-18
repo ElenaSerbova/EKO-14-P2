@@ -12,13 +12,8 @@
 	Info["Ivan"] = 10;
 	Info["Nicolay"] = 5;
 	Info["Dmitry"] = 8;
-	Info["Dmitgry"] = 8;
-	Info["Dmitsgry"] = 12;
-	Info["Dmasdaitgry"] = 11;
-	Info["Dmitgr5y"] = 8;
-	Info["Dmitg4ry"] = 8;
-	Info["Dmit3gry"] = 8;
-	Info["Dmi2tgry"] = 8;
+	Info["Dmitgry"] = 2;
+
 	var canvas = document.getElementById('canv');
 	if (canvas.getContext)
 	{
@@ -47,7 +42,7 @@
  		var i=0;
  		for(var prop in Info)
  		{
-		ctx.fillStyle="rgb("+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+","+Math.round(Math.random()*255)+")";
+		ctx.fillStyle=["brown", "orange", "black", "yellow", "blue", "green", "red"][i%6];
 		ctx.fillText(prop,110+(i*(570/col)),520);
 		ctx.fillRect(110+(i*(570/col)),(12-Info[prop])*30+120,50-col,500-((12-Info[prop])*30+120));
 		i++;
