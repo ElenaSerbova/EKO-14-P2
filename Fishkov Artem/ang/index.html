@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+	<head>
+		<script src="js\angular.min.js">
+		</script>
+		<style>
+			.odd
+			{
+				background-color:white;
+			}
+			.even
+			{
+				background-color:silver;
+			}
+		</style>
+	</head>
+	<body>
+		<div ng-controller="studentsController">
+			<table	 border='2'>
+				<tr>
+					<td>name</td>
+					<td>surname</td>
+					<td>birthday</td>
+				</tr>
+				<tr ng-repeat="student in students" ng-class="$odd ?'odd':'even'">
+					<td>{{student.name}}</td>
+					<td>{{student.surname}}</td>
+					<td>{{student.birthday.day}}:{{student.birthday.month}}:{{student.birthday.year}}</td>
+				</tr>
+			</table>
+		</div>
+		<div ng-controller="studentsController">
+		
+		</div>
+		<script>
+			var myApp = angular.module('myApp',[]);
+		</script>
+		<script src="js\controllers\StudentsController.js">
+		</script>
+	</body>
+</html>

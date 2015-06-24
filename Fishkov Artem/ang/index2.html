@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head ng-app='notScopeApp'>
+	<script src="js\angular.min.js">
+	</head>
+	<body>
+	<div ng-controller="notScopeController as nsc">
+	{{nsc.text}}		
+	</div>
+	<script>
+		var app = angular.module('notScopeApp',[]);
+		app.controller("notScopeController",function(){
+		this.text = "test text";
+		})
+	</script>
+	</body>
+</html>

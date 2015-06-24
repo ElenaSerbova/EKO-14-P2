@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html ng-app="ShopApp">
+	<head>
+	<script src="js\angular.min.js">
+	</script>
+	<style>
+		.menu
+		{
+			width:30%;
+			background-color:gray;
+			height:100%;
+		}
+		.main
+		{
+			
+			position:relative;
+			border:1px solid black;
+			margin-bottom:20px;
+			
+			background-color:lightblue;
+			
+		}
+		.name
+		{
+			
+			margin-left:20px;
+			margin-top:20px;
+			margin-right:20px;
+			margin-bottom:20px;
+			font-size:40px;
+			color: black;
+			font-family:sans-serif;
+		
+		}
+		.pic
+		{
+			margin-left:20px;
+			margin-top:10px;
+			margin-right:20px;
+			margin-bottom:20px;
+		
+			display:block;
+			
+		}
+		.disc
+		{	
+			margin-bottom:5px;
+			margin-left	:5px;
+			padding-top:5px;
+			padding-left:2px;
+			padding-right:1px;
+			padding-bottom:3px;
+			display:inline-block;
+			border:1px solid black;
+		}
+		.price
+		{
+			display:inline;
+			margin-top:20px;
+			color:grey;
+			font-size:30px;
+			font-family:sans-serif;
+		}
+	</style>
+	</head>
+	<body>
+	<div style="height:200px;background-color:aqua;margin-bottom:15px;">
+	</div>
+	<table>
+	<tr>
+	<td class='menu'>
+	
+	</div>
+	</td>
+	<td style="width:100%;">
+	<div ng-controller="ShopController">
+		<div ng-repeat="me in goods" class='main'>
+		<div>
+		<div class='name'>
+		{{me.name}}
+		<span class='price'>
+		{{me.price}}$
+		</span>
+		</div>	
+		
+		
+		</div>
+		<div>
+		<img src={{me.pic}}  height=225 class='pic'>
+		</div>
+		<div style="width:500px">
+		<div class='disc'>
+		{{me.discript}}
+		</div>
+		</div>
+		
+		
+		
+		
+		
+	</div>
+	</td>
+	</tr>
+	</table>
+	<script>
+		var app = 	angular.module('ShopApp',[]);
+		app.controller("ShopController",function($scope){
+		function merch(name,discript,price,pic)
+		{
+			this.name = name;
+			this.discript = discript;
+			this.price =price;
+			this.pic = pic;
+		}
+		$scope.goods = [];
+		$scope.goods[0] = new merch('Apple iPhone 6 16GB Silver','iPhone 6 не просто больше. Он лучше во всех отношениях. Больше, но при этом значительно тоньше. Мощнее, но при этом исключительно экономичный. Его гладкая металлическая поверхность плавно переходит в стекло нового HD-﻿дисплея Retina, образуя цельный, законченный дизайн. Его аппаратная часть идеально работает с программным обеспечением. Это новое поколение iPhone, улучшенное во всём.',200,'http://i1.rozetka.ua/goods/164466/record_164466207.jpg');
+		$scope.goods[1] = new merch('Samsung Galaxy E5 E500H/DS Brown','Samsung Galaxy E5 — смартфон отличающийся роскошным дизайном и великолепным 5-дюймовым HD sAMOLED экраном.',300,'http://i2.rozetka.ua/goods/327859/record_327859847.jpg');
+		})
+	</script>
+	</body>
+</html>
