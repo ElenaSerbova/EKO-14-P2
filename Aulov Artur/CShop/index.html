@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+    <title>Craunt Shop</title>
+    <link rel="stylesheet" href="css\style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+    
+</head>
+<body ng-controller="Controller as products">
+    <div class="header">
+        <ul class="ca-menu">
+            <li id="blue">
+                <a href="#">
+                    <img src="image/Home.png" alt="" class="ca-main" />
+                    <h3 class="ca-sub">Главная</h3>
+                </a>
+            </li>
+            <li id="purple">
+                <a href="#">
+                    <img src="image/Phone.png" alt="" class="ca-main" />
+                    <h3 class="ca-sub">Мобильные устройства</h3>
+                </a>
+            </li>
+            <li id="green">
+                <a href="#">
+                    <img src="image/Computer.png" alt="" class="ca-main" />
+                    <h3 class="ca-sub">Компьютера</h3>
+                </a>
+            </li>
+            <li id="d_blue">
+                <a href="#">
+                    <img src="image/Compass.png" alt="" class="ca-main" />
+                    <h3 class="ca-sub">Товары для отдыха</h3>
+                </a>
+            </li>
+            <li id="blue">
+                <a href="#">
+                    <img src="image/Pencil.png" alt="" class="ca-main" />
+                    <h3 class="ca-sub">Канцтовары</h3>
+                </a>
+            </li>
+            <li id="orange">
+                <a href="#">
+                    <img src="image/Heart.png" alt="" class="ca-main" />
+                    <h3 class="ca-sub">Ваше здоровье</h3>
+                </a>
+            </li>
+            <li id="l_blue">
+                <a href="#">
+                    <img src="image/Music.png" alt="" class="ca-main" />
+                    <h3 class="ca-sub">Музыкальные инструменты</h3>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="mainContent">
+        <div class="content">
+            <div class="info">
+                Фильтры<br />
+                <input type="radio" ng-model="stil" value="" checked="checked" />Все товары<br />
+                <input type="radio" ng-model="stil" value="Mobile" />Мобильные телефоны<br />
+                <input type="radio" ng-model="stil" value="Computers" />Компьютера<br />
+                <input type="radio" ng-model="stil" value="Relax" />Товары для отдыха<br />
+                <input type="radio" ng-model="stil" value="Stationery" />Канцтовары<br />
+                <input type="radio" ng-model="stil" value="Health" />Ваше здоровье<br />
+                <input type="radio" ng-model="stil" value="Music" />Музыкальные инструменты<br />
+                Поиск по тексту:<br />
+                <input type="text" ng-model="filt" /><br />
+            </div>
+            <center><h1>ВСЕ ТОВАРЫ</h1></center>
+            <div ng-repeat="tmp in products.product| filter:stil| filter:filt as results" class="product">
+                <div class="delete"></div>
+                <center>
+                    {{tmp.category}}
+                    <div class='name'>
+                        {{tmp.name}}
+                    </div>
+                    <div>
+                        <img src={{tmp.img}} height=250 class='pic'>
+                    </div>
+                    <div class="disc">
+                        {{tmp.description}}
+                    </div>
+                    <span class='price'>{{tmp.price}}$</span>
+                </center>
+            </div>
+        </div>
+        <div class="footer">
+
+        </div>
+    </div>
+    <div id="add">
+        <img src="image/Plus.png" alt="" width="70" height="70" />
+    </div>
+    <div id="form">
+        <form ng-submit="products.addProd()">
+            Название товара: <br />
+            <input type="text" style="width:399px;" ng-model="products.newProd.name" required /><br />
+            Путь на картинку <br />
+            <input type="text" style="width:399px;" ng-model="products.newProd.img" required /><br />
+            Цена товара: <br />
+            <input type="text" style="width:399px;" ng-model="products.newProd.price" required /><br />
+            Категория товара:<br />
+            <select id="comboBox" style="width:402px;" ng-model="products.newProd.category" required>
+                <option selected value="Mobile">Мобильные телефоны</option>
+                <option value="Computers">Компьютера</option>
+                <option value="Relax">Товары для отдыха</option>
+                <option value="Stationery">Канцтовары</option>
+                <option value="Health">Ваше здоровье</option>
+                <option value="Music">Музыкальные инструменты</option>
+            </select><br />
+            Описание<br />
+            <textarea style="resize:none;" cols="52" rows="19" ng-model="products.newProd.description" required></textarea><br />
+            <button type="submit" id="oClick">Добавить</button>
+        </form>
+    </div>
+    <script src="js\Controller.js"></script>
+    <script src="js\mainScript.js"></script>
+</body>
+</html>
